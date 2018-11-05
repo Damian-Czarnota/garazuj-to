@@ -268,3 +268,24 @@ body{
       }
     }
   }
+
+  //TABLE//
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+  color:#333;
+
+  &__header,&__cell{
+    padding:10px 15px;
+  }
+
+  &__header{
+    border-bottom:2px solid $main-blue;
+    text-align: left;
+  }
+
+  &__cell{
+    border-bottom: 1px solid $second-gray;
+  }
+}
