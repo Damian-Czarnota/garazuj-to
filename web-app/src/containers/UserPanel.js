@@ -3,6 +3,7 @@
  */
 
 import React, { Component } from 'react';
+import AddCarForm from '../components/AddCarForm';
 
 const initialState = {firstName:'Abc',lastName:'',email:''};
 
@@ -13,30 +14,31 @@ export default class UserPanel extends Component{
         this.state = {
             initialState:initialState,
             cars:[],
-            car:{
-                mark:'',
-                model:'',
-                type:'',
-                course:'',
-                YoP:'',
-                capacity:'',
-                hp:'',
-                ft:'',
-                transmission:'',
-                drive:''
-            }
+            carBoxes:[{visible:true}]
         };
-        this.handleChange = this.handleChange.bind(this);
-        this.saveCar = this.saveCar.bind(this);
-    }
+        this.cars=[];
+        this.handleChange = this.handleChange.bind(this)
+    };
 
     handleChange(event){
-        this.setState({car:{[event.target.name]: event.target.value}})
+        this.setState({[event.target.name]: event.target.value})
     }
 
-    saveCar(){
+    saveCar = (car) =>{
+        this.cars.push(car);
+        this.setState({cars:this.cars});
+    };
 
-    }
+    addCar = () =>{
+        this.state.carBoxes.push({visible:true});
+        this.setState({carBoxes:this.state.carBoxes});
+    };
+
+    deleteCar = (index) =>{
+        this.state.carBoxes.splice(index,1);
+        this.cars.splice(index,1);
+        this.setState({carBoxes:this.state.carBoxes});
+    };
 
     render(){
         return(
@@ -83,66 +85,11 @@ export default class UserPanel extends Component{
                     <div className="section">
                         <div className="section__header">
                             <span>Car</span>
+                            <button className="circle circle-add-car circle-primary" onClick={this.addCar}><i className="fas fa-plus"></i></button>
                         </div>
-                        <div className="section__middle">
-                            <div className="details_section details_section-two-col">
-                                <div className="control_input">
-                                    <input name="mark" type="text" className="custom_input" value={this.state.car.mark} onChange={this.handleChange} required/>
-                                    <label className="custom_label">Mark</label>
-                                </div>
-                                <div className="control_input">
-                                    <input name="model" type="text" className="custom_input" value={this.state.car.model} onChange={this.handleChange} required />
-                                    <label className="custom_label">Model</label>
-                                </div>
-                                <div className="control_input">
-                                    <select name="type" type="text" className="custom_input" value={this.state.car.type} onChange={this.handleChange} required>
-                                        <option value="Sedan">Sedan</option>
-                                        <option value="Coupe">Coupe</option>
-                                        <option value="Vagon">Vagon</option>
-                                        <option value="VAN">VAN</option>
-                                        <option value="Hatchback">Hatchback</option>
-                                    </select>
-                                    <label className="custom_label">Type</label>
-                                </div>
-                                <div className="control_input">
-                                    <input name="YoP" type="text" className="custom_input" value={this.state.car.YoP} onChange={this.handleChange} required />
-                                    <label className="custom_label">Year of production</label>
-                                </div>
-                                <div className="control_input">
-                                    <input name="course" type="text" className="custom_input" value={this.state.car.course} onChange={this.handleChange} required />
-                                    <label className="custom_label">Course</label>
-                                </div>
-                                <div className="control_input">
-                                    <input name="capacity" type="text" className="custom_input" value={this.state.car.capacity} onChange={this.handleChange} required />
-                                    <label className="custom_label">Capacity</label>
-                                </div>
-                                <div className="control_input">
-                                    <input name="hp" type="text" className="custom_input" value={this.state.car.hp} onChange={this.handleChange} required />
-                                    <label className="custom_label">Horse power</label>
-                                </div>
-                                <div className="control_input">
-                                    <select name="ft" type="text" className="custom_input" value={this.state.car.ft} onChange={this.handleChange} required>
-                                        <option value="diesel">Diesel</option>
-                                        <option value="lpg">LPG</option>
-                                        <option value="petrol">Petrol</option>
-                                    </select>
-                                    <label className="custom_label">Fuel type</label>
-                                </div>
-                                <div className="control_input">
-                                    <input name="transmission" type="text" className="custom_input" value={this.state.car.transmission} onChange={this.handleChange} required />
-                                    <label className="custom_label">Transmission</label>
-                                </div>
-                                <div className="control_input">
-                                    <input name="drive" type="text" className="custom_input" value={this.state.car.drive} onChange={this.handleChange} required />
-                                    <label className="custom_label">Drive</label>
-                                </div>
-                            </div>
-                            <div className="section__end" style={{textAlign:'center'}}>
-                                <button className="btn btn-primary" onClick={this.saveCar}>
-                                    Save
-                                </button>
-                            </div>
-                        </div>
+                        {this.state.carBoxes.map((box,key)=>(
+                            <AddCarForm key={key} saveCar={this.saveCar} deleteCar={this.deleteCar} id={key}/>
+                        ))}
                     </div>
                 </div>
             </div>

@@ -1,0 +1,6 @@
+# Distribution / packaging
+node_modules/
+
+# Environments
+.idea/
+

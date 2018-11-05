@@ -1,9 +1,11 @@
+@import './variables';
+
 body{
   overflow-x: hidden;
 }
 
 .primary-text{
-  color:#3572b0;
+  color: $main-blue;
 }
 .secondary-text{
   color:white;
@@ -11,7 +13,7 @@ body{
 }
 
 .third-text{
-  color: #a5a5a5;
+  color: $main-gray;
   font-size:12px;
 }
 
@@ -39,7 +41,7 @@ body{
 
   .sign_panel__form{
     text-align: center;
-    color: #9d9d9d;
+    color: $third-gray;
     background-color: white;
     padding:40px 25px;
   }
@@ -47,7 +49,7 @@ body{
   i{
     font-size:125px;
     padding:20px;
-    color:#c5c5c5
+    color:$second-gray
   }
 
   .log-in-button{
@@ -63,7 +65,7 @@ body{
 
 .input-style{
     background-color: transparent;
-    border: 1px solid #c5c5c5;
+    border: 1px solid $second-gray;
     border-radius:5px;
     padding:5px 10px;
     margin:10px 0;
@@ -78,7 +80,7 @@ body{
   position: relative;
   padding:20px 0 0 0;
   margin: 10px 0 0 0;
-  color:#c5c5c5;
+  color:$second-gray;
 }
 .custom_label{
   position: absolute;
@@ -94,12 +96,12 @@ body{
   border:none;
   padding:10px;
   color:#666;
-  border-bottom: 1px solid #c5c5c5;
+  border-bottom: 1px solid $second-gray;
   box-sizing:content-box;
 }
 
 .custom_input:placeholder{
-  color:#c5c5c5;
+  color:$second-gray;
 }
 
 .custom_input:focus{
@@ -125,7 +127,7 @@ body{
   &__header{
     color:#333;
     padding-bottom:5px;
-    border-bottom: 1px solid #3572b0;
+    border-bottom: 1px solid $main-blue;
   }
 
   &__middle{
@@ -140,7 +142,7 @@ body{
   &__title{
     font-weight: 400;
     font-size: 18px;
-    color: #3572b0;
+    color: $main-blue;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -166,29 +168,57 @@ body{
   }
 }
 
-.btn {
+.circle,.btn{
   color: #333;
   background-color: transparent;
+}
+
+.circle{
+  border-radius: 50%;
+  width:45px;
+  height:45px;
+  &:hover{
+    cursor: pointer;
+  }
+  &:focus{
+    outline:none;
+    border-color: #ffd805;
+  }
+  &-primary{
+    color:white;
+    border:1px solid $main-blue;
+    background-color: $main-blue;
+  }
+  &-add-car{
+    margin-top:5px;
+    position:absolute;
+    right:30px;
+  }
+  &-primary:hover{
+    background-color: #00396f;
+  }
+}
+
+.btn {
   border-radius: 10px;
   padding: 5px 20px;
   margin: 15px;
-
   input{
     display: none;
   }
-
   &:disabled{
     cursor: not-allowed;
     opacity:0.5;
   }
   &:hover{
     color:white;
+    cursor: pointer;
   }
   &-primary {
-    border: 1px solid #3572b0;
+    border: 1px solid $main-blue;
   }
   &-primary:hover{
-    background-color: #3572b0;
+    background-color: $main-blue;
   }
   &-danger {
     border: 1px solid rgba(205, 0, 0, 1);
