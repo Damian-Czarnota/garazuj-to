@@ -74,7 +74,7 @@ class SignUpForm extends Component {
                 {this.state.registered&&(
                     <div>
                         <p>Thank you for register!</p>
-                        <p><a style={{color:'#2dc9ff'}} onClick={this.signIn}>Sign in</a></p>
+                        <p><a className="link" onClick={this.signIn}>Sign in</a></p>
                     </div>
                 )}
             </form>

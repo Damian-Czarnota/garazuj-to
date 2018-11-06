@@ -30,7 +30,14 @@ class Grid extends Component{
                             {config.map((row,key) =>(
                                 <td className="table__cell" key={key}>
                                     {row.type==='image'&&(
-                                        <img style={{width:48+'px'}} alt={item.id} src={item[row.key]} />
+                                        <div>
+                                            {item[row.key]!==''&&(
+                                                <img style={{width:48+'px'}} alt={item.id} src={item[row.key]} />
+                                            )}
+                                            {item[row.key]===''&&(
+                                                <span>No photo</span>
+                                            )}
+                                        </div>
                                     )}
                                     {row.type!=='image'&&(
                                         <span>{item[row.key]}</span>

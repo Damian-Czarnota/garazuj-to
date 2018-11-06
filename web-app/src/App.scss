@@ -291,3 +291,21 @@ body{
 .user-cars_panel{
   margin:0 10px;
 }
+
+.empty-grid{
+  width:100%;
+  text-align: center;
+  color:#333;
+  i{
+    font-size:120px;
+  }
+}
+
+.link{
+  text-decoration: none;
+  color:#2dc9ff;
+  &:hover{
+    color:$dark-blue;
+    transition: 0.5s;
+  }
+}
