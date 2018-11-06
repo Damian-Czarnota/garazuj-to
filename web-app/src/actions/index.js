@@ -1,9 +1,18 @@
 /**
  * Created by Damian.Czarnota on 2018-10-16.
  */
-import { AUTHENTICATE } from "../constants/action-types.js";
+import { AUTHENTICATE, REGISTER } from "../constants/action-types.js";
 
 export const authenticate = value => ({
     type:AUTHENTICATE,
     payload:value
 });
+
+export const register = value =>({
+    type:REGISTER,
+    payload:value
+});
+
+export const getToken = () =>{
+    return sessionStorage.getItem('Authentication')
+};

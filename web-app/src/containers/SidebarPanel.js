@@ -3,7 +3,7 @@
  */
 
 import React, { Component } from 'react';
-
+import { Link } from 'react-router-dom'
 
 export default class SidebarPanel extends Component{
     constructor(props){
@@ -20,10 +20,10 @@ export default class SidebarPanel extends Component{
                 </div>
                 <div className="left_menu__nav">
                     <ul className="nav-column">
-                        <li className="nav-column__item">About me...</li>
+                        <li className="nav-column__item"><Link to="/profile">About me...</Link></li>
                         <li className="nav-column__item">Guides</li>
                         <li className="nav-column__item">Users</li>
-                        <li className="nav-column__item">Cars</li>
+                        <li className="nav-column__item"><Link to="/cars">Cars</Link></li>
                     </ul>
                 </div>
             </div>

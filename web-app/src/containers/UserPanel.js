@@ -5,14 +5,15 @@
 import React, { Component } from 'react';
 import AddCarForm from '../components/AddCarForm';
 
-const initialState = {firstName:'Abc',lastName:'',email:''};
 
 export default class UserPanel extends Component{
 
     constructor(props){
         super(props);
         this.state = {
-            initialState:initialState,
+            firstName:'Damian',
+            lastName:'Czarnota',
+            email:'example@example.com',
             cars:[],
             carBoxes:[{visible:true}]
         };
@@ -63,15 +64,15 @@ export default class UserPanel extends Component{
                             </div>
                             <div className="details_section">
                                 <div className="control_input">
-                                    <input name="firstName" type="text" className="custom_input" value={this.state.initialState.firstName} onChange={this.handleChange} formNoValidate />
+                                    <input name="firstName" type="text" className="custom_input" value={this.state.firstName} onChange={this.handleChange} formNoValidate />
                                     <label className="custom_label">First name</label>
                                 </div>
                                 <div className="control_input">
-                                    <input name="lastName" type="text" className="custom_input" value={this.state.initialState.lastName} onChange={this.handleChange} formNoValidate />
+                                    <input name="lastName" type="text" className="custom_input" value={this.state.lastName} onChange={this.handleChange} formNoValidate />
                                     <label className="custom_label">Last name</label>
                                 </div>
                                 <div className="control_input">
-                                    <input name="email" type="text" className="custom_input" value={this.state.initialState.email} onChange={this.handleChange} formNoValidate />
+                                    <input name="email" type="text" className="custom_input" value={this.state.email} onChange={this.handleChange} formNoValidate />
                                     <label className="custom_label">E-mail</label>
                                 </div>
                                 <div className="section__end">
