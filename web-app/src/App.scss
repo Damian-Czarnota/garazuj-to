@@ -4,6 +4,9 @@ body{
   overflow-x: hidden;
 }
 
+.m-0{
+  margin:0;
+}
 .primary-text{
   color: $main-blue;
 }
@@ -37,9 +40,10 @@ body{
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: black;
+  background-color: $dark-blue;
 
   .sign_panel__form{
+    min-width:325px;
     text-align: center;
     color: $third-gray;
     background-color: white;
@@ -51,16 +55,6 @@ body{
     padding:20px;
     color:$second-gray
   }
-
-  .log-in-button{
-    color:white;
-    margin:10px;
-    padding:5px 10px;
-    background-color: #2dc9ff;
-    border-radius:2px;
-    width:15vw;
-    border:none;
-  }
 }
 
 .input-style{
@@ -69,7 +63,7 @@ body{
     border-radius:5px;
     padding:5px 10px;
     margin:10px 0;
-    width:15vw;
+    width: calc(100% - 22px);
 }
 
 .input-style::placeholder{
@@ -233,7 +227,7 @@ body{
     position: fixed;
     height:100vh;
     width:300px;
-    background-color: #00396f;
+    background-color: $dark-blue;
     display: flex;
     flex-direction: column;
 
@@ -260,6 +254,10 @@ body{
 
       &__item{
         padding:5px 5px 5px 30px;
+        a{
+          color: inherit;
+          text-decoration: none;
+        }
       }
 
       &__item:hover{
@@ -288,4 +286,8 @@ body{
   &__cell{
     border-bottom: 1px solid $second-gray;
   }
+}
+
+.user-cars_panel{
+  margin:0 10px;
 }
