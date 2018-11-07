@@ -6,14 +6,16 @@ import UserPanel from '../containers/UserPanel';
 import UserCars from '../containers/UserCars';
 import { connect } from "react-redux";
 import { Route,withRouter  } from 'react-router-dom'
-import { authenticate } from '../actions/index';
+import { authenticate, setUserInfo } from '../actions/index';
+import * as currentUserAPI from '../API/Me';
 
 const mapStateToProps = state => {
   return { authenticated: state.authenticated };
 };
 
 const mapDispatchToProps = dispatch => {
-    return {authenticate: value => dispatch(authenticate(value))};
+    return {authenticate: value => dispatch(authenticate(value)),
+            setUserInfo: value => dispatch(setUserInfo(value))};
 };
 
 class App extends Component {
@@ -22,9 +24,13 @@ class App extends Component {
   }
 
     componentWillMount(){
-        if(sessionStorage.getItem('Authentication')){
-            this.props.authenticate(true);
-        }
+        currentUserAPI.get().then(res =>{
+            if(res.status) this.props.authenticate(false);
+            else{
+                this.props.setUserInfo(res);
+                this.props.authenticate(true);
+            }
+        })
     }
 
   render() {

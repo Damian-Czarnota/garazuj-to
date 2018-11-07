@@ -1,7 +1,7 @@
 /**
  * Created by Damian.Czarnota on 2018-10-16.
  */
-import { AUTHENTICATE, REGISTER } from "../constants/action-types.js";
+import { AUTHENTICATE, REGISTER, USER_INFO } from "../constants/action-types.js";
 
 export const authenticate = value => ({
     type:AUTHENTICATE,
@@ -13,6 +13,11 @@ export const register = value =>({
     payload:value
 });
 
+export const setUserInfo = value =>({
+    type:USER_INFO,
+    payload:value
+});
+
 export const getToken = () =>{
-    return sessionStorage.getItem('Authentication')
+    return 'Bearer '+sessionStorage.getItem('Authorization')
 };

@@ -38,7 +38,7 @@ class SignInForm extends Component {
             res =>{
                 if(res.authorities) {
                     this.props.authenticate(true);
-                    sessionStorage.setItem('Authentication',res.accessToken);
+                    sessionStorage.setItem('Authorization',res.accessToken);
                 }
             }
         )

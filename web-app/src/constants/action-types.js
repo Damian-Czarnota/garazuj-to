@@ -4,3 +4,4 @@
 
 export const AUTHENTICATE = "AUTHENTICATE";
 export const REGISTER = "REGISTER";
+export const USER_INFO="USER_INFO";

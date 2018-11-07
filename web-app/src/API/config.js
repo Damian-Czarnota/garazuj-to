@@ -8,5 +8,5 @@ export const URL = "http://localhost:8001/api";
 
 export const headers = {
     'Content-Type': 'application/json',
-    'Authentication': getToken()
+    'Authorization': getToken()
 };

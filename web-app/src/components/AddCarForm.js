@@ -45,11 +45,11 @@ export default class AddCarForm extends Component{
                     </div>
                     <div className="control_input">
                         <select name="type" type="text" className="custom_input" value={this.state.type} onChange={this.handleChange} required>
-                            <option value="Sedan">Sedan</option>
-                            <option value="Coupe">Coupe</option>
-                            <option value="Vagon">Vagon</option>
+                            <option value="SEDAN">Sedan</option>
+                            <option value="COUPE">Coupe</option>
+                            <option value="VAGON">Vagon</option>
                             <option value="VAN">VAN</option>
-                            <option value="Hatchback">Hatchback</option>
+                            <option value="HATCHBACK">Hatchback</option>
                         </select>
                         <label className="custom_label">Type</label>
                     </div>
@@ -71,9 +71,11 @@ export default class AddCarForm extends Component{
                     </div>
                     <div className="control_input">
                         <select name="ft" type="text" className="custom_input" value={this.state.ft} onChange={this.handleChange} required>
-                            <option value="diesel">Diesel</option>
-                            <option value="lpg">LPG</option>
-                            <option value="petrol">Petrol</option>
+                            <option value="DIESEL">Diesel</option>
+                            <option value="LPG">LPG</option>
+                            <option value="PETROL">Petrol</option>
+                            <option value="PETROL_AND_LPG">Petrol+LPG</option>
+                            <option value="DIESEL_AND_LPG">Diesel+LPG</option>
                         </select>
                         <label className="custom_label">Fuel type</label>
                     </div>
