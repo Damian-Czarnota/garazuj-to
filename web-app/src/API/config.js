@@ -10,3 +10,7 @@ export const headers = {
     'Content-Type': 'application/json',
     'Authorization': getToken()
 };
+
+export const fileUploadHeader = {
+    'Authorization': getToken()
+};

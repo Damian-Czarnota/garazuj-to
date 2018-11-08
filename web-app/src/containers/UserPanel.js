@@ -4,25 +4,37 @@
 
 import React, { Component } from 'react';
 import AddCarForm from '../components/AddCarForm';
+import { connect } from "react-redux";
+import * as currentUserAPI from '../API/Me';
 
+const mapStateToProps = state => {
+    return { accountInfo: state.userInfo };
+};
 
-export default class UserPanel extends Component{
+class UserPanel extends Component{
 
     constructor(props){
         super(props);
         this.state = {
-            firstName:'Damian',
-            lastName:'Czarnota',
-            email:'example@example.com',
+            firstName:'',
+            lastName:'',
+            email:'',
             cars:[],
             carBoxes:[{visible:true}]
         };
         this.cars=[];
-        this.handleChange = this.handleChange.bind(this)
+        this.handleChange = this.handleChange.bind(this);
+        this.saveUser = this.saveUser.bind(this);
+        this.changeAvatar = this.changeAvatar.bind(this);
     };
 
+    componentWillMount(){
+        const {firstName, lastName, email} = this.props.accountInfo;
+        this.setState({firstName:firstName,lastName:lastName,email:email});
+    }
+
     handleChange(event){
-        this.setState({[event.target.name]: event.target.value})
+        this.setState({[event.target.name]: event.target.value});
     }
 
     saveCar = (car) =>{
@@ -41,6 +53,29 @@ export default class UserPanel extends Component{
         this.setState({carBoxes:this.state.carBoxes});
     };
 
+    saveUser = () =>{
+        currentUserAPI.edit({firstName:this.state.firstName,lastName:this.state.lastName}).
+            then(res =>{
+            console.log(res);
+        })
+    };
+
+    changeAvatar = (event) =>{
+        let files;
+        if(event.target) files = event.target.files;
+        else if(event.srcElement) files = event.srcElement.files;
+        if (files.nodeType == 3)
+            files = files.parentNode;
+        if (!files) {
+            return;
+        }
+        currentUserAPI.change(files).then(
+            res =>{
+                console.log(res);
+            }
+        )
+    };
+
     render(){
         return(
             <div className="user_panel">
@@ -56,7 +91,7 @@ export default class UserPanel extends Component{
                             <div className="avatar_section">
                                 <img src="https://www.comarch-cloud.com/jira/secure/useravatar?avatarId=10341&s=48" style={{width:96+'px',height:96+'px'}} className="circle-img" />
                                 <button className="btn btn-primary">
-                                    <label>Change<input type="file" /></label>
+                                    <label>Change<input type="file" accept="image/*" onChange={(e) => this.changeAvatar(e)} /></label>
                                 </button>
                                 <button className="btn btn-danger">
                                     Delete
@@ -64,7 +99,7 @@ export default class UserPanel extends Component{
                             </div>
                             <div className="details_section">
                                 <div className="control_input">
-                                    <input name="firstName" type="text" className="custom_input" value={this.state.firstName} onChange={this.handleChange} formNoValidate />
+                                    <input name="firstName" type="text" className="custom_input" value={this.state.firstName} onChange={this.handleChange} />
                                     <label className="custom_label">First name</label>
                                 </div>
                                 <div className="control_input">
@@ -72,13 +107,11 @@ export default class UserPanel extends Component{
                                     <label className="custom_label">Last name</label>
                                 </div>
                                 <div className="control_input">
-                                    <input name="email" type="text" className="custom_input" value={this.state.email} onChange={this.handleChange} formNoValidate />
-                                    <label className="custom_label">E-mail</label>
+                                    <input name="email" type="text" className="custom_input" value={this.state.email} formNoValidate disabled/>
+                                    <label className="custom_label-active">E-mail</label>
                                 </div>
                                 <div className="section__end">
-                                    <button className="btn btn-primary" disabled>
-                                        Save
-                                    </button>
+                                        <button className="btn btn-primary" onClick={this.saveUser}>Save</button>
                                 </div>
                             </div>
                         </div>
@@ -97,3 +130,5 @@ export default class UserPanel extends Component{
         )
     }
 }
+
+export default connect(mapStateToProps)(UserPanel);
