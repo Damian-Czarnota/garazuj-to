@@ -55,10 +55,10 @@ class SignInForm extends Component {
                     <input className="input-style" type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange} />
                 </label>
                 <p className="m-0" style={{textAlign:'right'}}>
-                    <a className="link" style={{fontSize:12+'px'}}>Forgot password?</a>
+                    <a href="/reset" className="link" style={{fontSize:12+'px'}}>Forgot password?</a>
                 </p>
                 <button type="send" onClick={(e) => this.logIn(e)} style={{width:15+'vw'}} className="btn btn-primary">Send</button>
-                <p>Need an account? <a className="link" onClick={this.register}>Sign up</a></p>
+                <p>Need an account? <span className="link" onClick={this.register}>Sign up</span></p>
             </form>
         )
     }

@@ -4,6 +4,8 @@ import AuthPanel from './AuthPanel';
 import SidebarPanel from './SidebarPanel';
 import UserPanel from '../containers/UserPanel';
 import UserCars from '../containers/UserCars';
+import GuidesPanel from '../containers/GuidesPanel';
+import Article from '../containers/Article';
 import { connect } from "react-redux";
 import { Route,withRouter  } from 'react-router-dom'
 import { authenticate, setUserInfo } from '../actions/index';
@@ -19,10 +21,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 class App extends Component {
-  constructor(props){
-    super(props);
-  }
-
     componentWillMount(){
         currentUserAPI.get().then(res =>{
             if(res.status) this.props.authenticate(false);
@@ -48,6 +46,10 @@ class App extends Component {
                         <Route path="/profile" render={()=> (<UserPanel />)}
                         />
                         <Route path="/cars" render={()=> (<UserCars />)}
+                        />
+                        <Route path="/guides" render={()=> (<GuidesPanel />)}
+                        />
+                        <Route path="/guide/:articleHash" component={Article}
                         />
                 </div>
             </div>

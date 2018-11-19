@@ -18,11 +18,6 @@ const mapDispatchToProps = dispatch  => {
 };
 
 class AuthPanel extends Component{
-    constructor(props){
-        super(props);
-    }
-
-
     logOut(){
         Auth.logout().then(resp =>{
             this.props.authenticate(false)

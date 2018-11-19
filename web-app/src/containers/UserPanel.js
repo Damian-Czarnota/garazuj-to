@@ -54,8 +54,8 @@ class UserPanel extends Component{
     };
 
     saveUser = () =>{
-        currentUserAPI.edit({firstName:this.state.firstName,lastName:this.state.lastName}).
-            then(res =>{
+        currentUserAPI.edit({firstName:this.state.firstName,lastName:this.state.lastName}).then(
+            res =>{
             console.log(res);
         })
     };
@@ -64,7 +64,7 @@ class UserPanel extends Component{
         let files;
         if(event.target) files = event.target.files;
         else if(event.srcElement) files = event.srcElement.files;
-        if (files.nodeType == 3)
+        if (files.nodeType === 3)
             files = files.parentNode;
         if (!files) {
             return;
@@ -89,7 +89,7 @@ class UserPanel extends Component{
                         </div>
                         <div className="section__middle">
                             <div className="avatar_section">
-                                <img src="https://www.comarch-cloud.com/jira/secure/useravatar?avatarId=10341&s=48" style={{width:96+'px',height:96+'px'}} className="circle-img" />
+                                <img src="https://www.comarch-cloud.com/jira/secure/useravatar?avatarId=10341&s=48" alt="Your avatar" style={{width:96+'px',height:96+'px'}} className="circle-img" />
                                 <button className="btn btn-primary">
                                     <label>Change<input type="file" accept="image/*" onChange={(e) => this.changeAvatar(e)} /></label>
                                 </button>
