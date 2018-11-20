@@ -6,7 +6,11 @@ import React, { Component } from 'react';
 import AddCarForm from '../components/AddCarForm';
 import { connect } from "react-redux";
 import * as currentUserAPI from '../API/Me';
+import { setUserInfo,isAdmin } from '../actions/index';
 
+const mapDispatchToPtops = dispatch =>{
+    return { setUserInfo:value => dispatch(setUserInfo(value))}
+};
 const mapStateToProps = state => {
     return { accountInfo: state.userInfo };
 };
@@ -56,7 +60,7 @@ class UserPanel extends Component{
     saveUser = () =>{
         currentUserAPI.edit({firstName:this.state.firstName,lastName:this.state.lastName}).then(
             res =>{
-            console.log(res);
+                this.props.setUserInfo(res);
         })
     };
 
@@ -131,4 +135,4 @@ class UserPanel extends Component{
     }
 }
 
-export default connect(mapStateToProps)(UserPanel);
+export default connect(mapStateToProps,mapDispatchToPtops)(UserPanel);

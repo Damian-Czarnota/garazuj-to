@@ -7,22 +7,24 @@ import { Link } from 'react-router-dom'
 import { connect } from "react-redux";
 
 const mapStateToProps = state => {
-    return { accountInfo: state.userInfo };
+    return { accountInfo: state.userInfo,
+            isAdmin: state.isAdmin};
 };
 
 class SidebarPanel extends Component{
     render(){
-        const {firstName, lastName, authorities} = this.props.accountInfo;
+        const {firstName, lastName} = this.props.accountInfo;
+        const {isAdmin} = this.props;
         return(
             <div className="left_menu">
                 <div className="left_menu__about">
                     <img src="https://www.comarch-cloud.com/jira/secure/useravatar?avatarId=10341&s=48" alt="Your avatar" style={{width:64+'px',height:64+'px'}} className="circle-img" />
                     <p className="secondary-text">{firstName} {lastName}</p>
                     <p className="third-text">
-                        {authorities&&(JSON.stringify(authorities)).includes('[{"authority":"ROLE_ADMIN"}]')&&(
+                        {isAdmin&&(
                             <span>Administrator</span>
                         )}
-                        {authorities&&!(JSON.stringify(authorities)).includes('[{"authority":"ROLE_ADMIN"}]')&&(
+                        {!isAdmin&&(
                             <span>User</span>
                         )}
                     </p>

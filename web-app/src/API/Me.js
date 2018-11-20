@@ -17,7 +17,7 @@ export const edit = (data) =>
         headers:headers,
         body:JSON.stringify(data)
     })
-        .then(res => res);
+        .then(res => res.json());
 
 export const change = (file) =>{
     let fd = new FormData();

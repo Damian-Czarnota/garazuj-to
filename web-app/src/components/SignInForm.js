@@ -3,13 +3,14 @@
  */
 
 import React, { Component } from 'react';
-import { register,authenticate } from '../actions/index';
+import { register,authenticate,setUserInfo } from '../actions/index';
 import { connect } from "react-redux";
 import * as AuthAPI from '../API/Auth';
 
 const mapDispatchToProps = dispatch  => {
     return { register: value => dispatch(register(value)),
-            authenticate: value => dispatch(authenticate(value))};
+            authenticate: value => dispatch(authenticate(value)),
+            setUserInfo:value => dispatch(setUserInfo(value))};
 };
 
 class SignInForm extends Component {
@@ -38,7 +39,8 @@ class SignInForm extends Component {
             res =>{
                 if(res.authorities) {
                     this.props.authenticate(true);
-                    sessionStorage.setItem('Authorization',res.accessToken);
+                    this.props.setUserInfo(res.userDetails);
+                    sessionStorage.setItem('Authorization',res.token);
                 }
             }
         )
