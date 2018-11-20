@@ -5,7 +5,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom'
-import AddArticleModal from '../components/AddArticleModal';
+import AddArticle from '../containers/AddArticle';
 
 export default class Articles extends Component {
 
@@ -22,7 +22,7 @@ export default class Articles extends Component {
                     <div className="section">
                         <div className="section__header">
                             <span>&nbsp;</span>
-                            <AddArticleModal />
+                            <AddArticle />
                         </div>
                     </div>
                     <div className="section">
