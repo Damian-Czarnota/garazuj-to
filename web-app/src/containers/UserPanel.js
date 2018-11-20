@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import AddCarForm from '../components/AddCarForm';
 import { connect } from "react-redux";
 import * as currentUserAPI from '../API/Me';
-import { setUserInfo,isAdmin } from '../actions/index';
+import { setUserInfo } from '../actions/index';
 
 const mapDispatchToPtops = dispatch =>{
     return { setUserInfo:value => dispatch(setUserInfo(value))}
