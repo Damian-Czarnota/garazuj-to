@@ -18,7 +18,7 @@ class SidebarPanel extends Component{
         return(
             <div className="left_menu">
                 <div className="left_menu__about">
-                    <img src="https://www.comarch-cloud.com/jira/secure/useravatar?avatarId=10341&s=48" alt="Your avatar" style={{width:64+'px',height:64+'px'}} className="circle-img" />
+                    <img src={process.env.PUBLIC_URL + '/img/custom_avatar.png'} alt="Your avatar" style={{width:64+'px',height:64+'px'}} className="circle-img" />
                     <p className="secondary-text">{firstName} {lastName}</p>
                     <p className="third-text">
                         {isAdmin&&(

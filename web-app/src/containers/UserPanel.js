@@ -93,7 +93,7 @@ class UserPanel extends Component{
                         </div>
                         <div className="section__middle">
                             <div className="avatar_section">
-                                <img src="https://www.comarch-cloud.com/jira/secure/useravatar?avatarId=10341&s=48" alt="Your avatar" style={{width:96+'px',height:96+'px'}} className="circle-img" />
+                                <img src={process.env.PUBLIC_URL + '/img/custom_avatar.png'}  alt="Your avatar" style={{width:96+'px',height:96+'px'}} className="circle-img" />
                                 <button className="btn btn-primary">
                                     <label>Change<input type="file" accept="image/*" onChange={(e) => this.changeAvatar(e)} /></label>
                                 </button>
