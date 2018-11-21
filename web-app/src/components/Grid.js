@@ -2,9 +2,13 @@
  * Created by Damian.Czarnota on 2018-10-12.
  */
 import React, { Component } from 'react';
-
+import PropTypes from 'prop-types';
 
 class Grid extends Component{
+    static propTypes = {
+        config: PropTypes.array.isRequired,
+        data: PropTypes.array.isRequired
+    };
     render(){
         const {config,data} = this.props;
         return(
