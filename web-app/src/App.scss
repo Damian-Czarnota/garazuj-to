@@ -452,3 +452,56 @@ input:disabled{
   background-color: #fdfdfd;
   padding:10px;
 }
+
+.comment{
+  display:flex;
+  margin:20px 0;
+  &__author{
+    text-align: center;
+    flex-grow:1;
+  }
+  &__content{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height:100px;
+    background-color: $fourth-gray;
+    padding:20px;
+    flex-grow:15;
+  }
+}
+
+.custom-textarea{
+  min-height:100px;
+  width:100%;
+  resize:vertical;
+  border:none;
+  background-color: rgba(255,255,255,0);
+}
+.full-name{
+  color:#333;
+  font-size:12px;
+  margin:0;
+}
+
+.data-text{
+  font-size:11px;
+  font-style: italic;
+  font-weight: 100;
+}
+
+.arrow-left{
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 40px 40px 0;
+  border-color: transparent $fourth-gray transparent transparent;
+}
+
+.arrow-right{
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 40px 40px 0 0;
+  border-color: $fourth-gray transparent transparent transparent;
+}
