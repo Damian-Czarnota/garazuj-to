@@ -4,28 +4,26 @@
 
 import React, { Component } from 'react';
 import { createPortal } from 'react-dom';
-import { convertFromRaw } from 'draft-js';
+import { EditorState} from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import * as ArticleAPI from '../API/ArticleAPI';
 
-const content = {"entityMap":{},"blocks":[{"key":"637gr","text":"Initialized from content state.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]};
 
 export default class AddArticleModal extends Component {
     constructor(props) {
         super(props);
-        const contentState = convertFromRaw(content);
         this.state = {
-            contentState,
+            editorState: EditorState.createEmpty(),
             title:''
         };
         this.addArticle = this.addArticle.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
-    onContentStateChange: Function = (contentState) => {
+    onEditorStateChange = (editorState) => {
         this.setState({
-            contentState
+            editorState
         });
     };
 
@@ -35,7 +33,7 @@ export default class AddArticleModal extends Component {
 
     addArticle = () =>{
         ArticleAPI.add(this.state).then(res =>{
-            this.props.onClose();
+
         })
     };
 
@@ -56,9 +54,10 @@ export default class AddArticleModal extends Component {
                                 <label className="custom_label">Title</label>
                             </div>
                             <Editor
+                                editorState={this.state.editorState}
                                 wrapperClassName="demo-wrapper"
                                 editorClassName="demo-editor"
-                                onContentStateChange={this.onContentStateChange}
+                                onEditorStateChange={this.onEditorStateChange}
                             />
                         </form>
                     </div>

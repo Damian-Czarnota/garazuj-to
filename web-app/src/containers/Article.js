@@ -5,15 +5,16 @@
 import React, {Component} from 'react';
 import * as ArticleAPI from '../API/ArticleAPI';
 import Comments from '../components/Comments';
+import draftToHtml from 'draftjs-to-html';
+import { EditorState,convertToRaw} from 'draft-js';
 
 export default class Article extends Component {
 
     constructor(props){
         super(props);
-        this.state={article:{
-            title:'Pierwszy artykuł',
-            img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtZLso2Wf3b193QGPQ5GNYciemOQrAvZMllIDy1ARS2bDTFMpzzg',
-            content:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        this.state={article: {
+            editorState:EditorState.createEmpty(),
+            title:'',
             comments:[{
                 hash:'2321412',
                 firstName:'Damian',
@@ -47,7 +48,10 @@ export default class Article extends Component {
                     </div>
                     <div className="section">
                         <div className="section__middle">
+                            {this.state.article.editorState&&(
+                            <div contentEditable='true' dangerouslySetInnerHTML={{ __html: `${draftToHtml(convertToRaw(this.state.article.editorState.getCurrentContent()))}` }}>
 
+                            </div>)}
                         </div>
                     </div>
                 </div>
@@ -59,7 +63,7 @@ export default class Article extends Component {
                     </div>
                     <div className="section">
                         <div className="section__middle">
-                            <Comments comments={comments} />
+                            <Comments comments={comments} label={'guide'} hash={this.state.article.hash}/>
                         </div>
                     </div>
                 </div>
