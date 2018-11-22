@@ -5,8 +5,13 @@
 import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import AddComment from './AddComment';
+import { connect } from "react-redux";
 
-export default class Comments extends Component{
+const mapStateToProps = state => {
+    return { accountInfo: state.userInfo };
+};
+
+class Comments extends Component{
     static propTypes = {
         comments: PropTypes.array.isRequired
     };
@@ -60,8 +65,10 @@ export default class Comments extends Component{
                         </div>
                     </div>
                 ))}
-                <AddComment getComments={this.getComments} addComment={this.addComment} label={this.props.label}/>
+                <AddComment accountInfo={this.props.accountInfo} getComments={this.getComments} addComment={this.addComment} label={this.props.label}/>
             </Fragment>
         )
     }
 }
+
+export default connect(mapStateToProps)(Comments);
