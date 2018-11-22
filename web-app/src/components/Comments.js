@@ -12,10 +12,38 @@ export default class Comments extends Component{
     };
     constructor(props){
         super(props);
+        this.state={
+            comments:this.props.comments
+        };
+        this.getComments = this.getComments.bind(this);
+        this.addComment = this.addComment.bind(this);
     }
 
+    getComments = () =>{
+        const {label,hash} = this.props;
+        //if(label==='guide'){
+        //CommentsAPI.getArticleComments(hash).then(res =>{
+        //this.setState({comments:res})
+        //}
+        //else if(label==='car'){
+        //CarAPI.getCarComments(hash).then(res =>{
+        //this.setState({comments:res})
+        //}
+    };
+
+    addComment = (content) =>{
+        const {label,hash} = this.props;
+        //if(label==='guide'){
+        //CommentsAPI.addArticleComment(hash,content).then(res =>{
+        //this.getComments();
+        //}
+        //else if(label==='car'){
+        //CarAPI.addCarComments(hash,content).then(res =>{
+        //this.getComments();
+        //}
+    };
     render(){
-        let {comments} = this.props;
+        let {comments} = this.state;
         return(
             <Fragment>
                 {comments&&comments.map(comment =>(
@@ -32,7 +60,7 @@ export default class Comments extends Component{
                         </div>
                     </div>
                 ))}
-                <AddComment />
+                <AddComment getComments={this.getComments} addComment={this.addComment} label={this.props.label}/>
             </Fragment>
         )
     }
