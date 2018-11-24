@@ -10,7 +10,7 @@ export default class DisplayAvatar extends Component{
         return(
             <Fragment>
                 {!profile_image&&(
-                    <i className="fa fa-user default-avatar"></i>
+                    <i className="fa fa-user default-avatar" style={{fontSize:size+'px'}}></i>
                 )}
                 {profile_image&&(
                     <img src={profile_image}  alt="Your avatar" style={{width:size+'px',height:size+'px'}} className="circle-img" />
