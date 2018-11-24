@@ -3,6 +3,7 @@
  */
 
 import React, {Component} from 'react';
+import DisplayAvatar from "./DisplayAvatar";
 
 
 export default class AddComment extends Component{
@@ -19,7 +20,7 @@ export default class AddComment extends Component{
     }
 
     render(){
-        let {firstName, lastName} = this.props.accountInfo;
+        let {firstName, lastName, profile_image} = this.props.accountInfo;
         return(
             <div className="comment">
                 <div className="comment__content">
@@ -28,7 +29,7 @@ export default class AddComment extends Component{
                 <div className="arrow-right">
                 </div>
                 <div className="comment__author">
-                    <img src={process.env.PUBLIC_URL + '/img/custom_avatar.png'} alt="Your avatar" style={{width:64+'px',height:64+'px'}} className="circle-img" />
+                    <DisplayAvatar profile_image={profile_image} size={64}/>
                     <p className="full-name">{firstName} {lastName}</p>
                     <button className="btn btn-primary" onClick={(e) => this.props.addComment(this.state)}>Save</button>
                 </div>

@@ -32,6 +32,10 @@ input:disabled{
   flex-direction: row;
 }
 
+.default-avatar{
+  color:$fourth-gray;
+}
+
 .loading_container {
   height: 100vh;
   display: flex;

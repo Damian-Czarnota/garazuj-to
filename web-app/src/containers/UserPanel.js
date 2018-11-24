@@ -7,6 +7,7 @@ import AddCarForm from '../components/AddCarForm';
 import { connect } from "react-redux";
 import * as currentUserAPI from '../API/Me';
 import { setUserInfo } from '../actions/index';
+import DisplayAvatar from "../components/DisplayAvatar";
 
 const mapDispatchToPtops = dispatch =>{
     return { setUserInfo:value => dispatch(setUserInfo(value))}
@@ -93,7 +94,7 @@ class UserPanel extends Component{
                         </div>
                         <div className="section__middle">
                             <div className="avatar_section">
-                                <img src={process.env.PUBLIC_URL + '/img/custom_avatar.png'}  alt="Your avatar" style={{width:96+'px',height:96+'px'}} className="circle-img" />
+                               <DisplayAvatar profile_image={this.state.profile_image} size={96}/>
                                 <button className="btn btn-primary">
                                     <label>Change<input type="file" accept="image/*" onChange={(e) => this.changeAvatar(e)} /></label>
                                 </button>

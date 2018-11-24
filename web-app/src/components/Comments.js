@@ -6,6 +6,7 @@ import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import AddComment from './AddComment';
 import { connect } from "react-redux";
+import DisplayAvatar from "./DisplayAvatar";
 
 const mapStateToProps = state => {
     return { accountInfo: state.userInfo };
@@ -54,8 +55,8 @@ class Comments extends Component{
                 {comments&&comments.map(comment =>(
                     <div className="comment" key={comment.hash}>
                         <div className="comment__author">
-                            <img src={process.env.PUBLIC_URL + '/img/custom_avatar.png'} alt="Your avatar" style={{width:64+'px',height:64+'px'}} className="circle-img" />
-                            <p className="full-name">{comment.firstName} {comment.lastName}</p>
+                            <DisplayAvatar profile_image={comment.author.profile_image} size={64}/>
+                            <p className="full-name">{comment.author.firstName} {comment.author.lastName}</p>
                         </div>
                         <div className="arrow-left">
                         </div>

@@ -5,6 +5,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { connect } from "react-redux";
+import DisplayAvatar from "../components/DisplayAvatar";
 
 const mapStateToProps = state => {
     return { accountInfo: state.userInfo,
@@ -13,12 +14,12 @@ const mapStateToProps = state => {
 
 class SidebarPanel extends Component{
     render(){
-        const {firstName, lastName} = this.props.accountInfo;
+        const {firstName, lastName, profile_image} = this.props.accountInfo;
         const {isAdmin} = this.props;
         return(
             <div className="left_menu">
                 <div className="left_menu__about">
-                    <img src={process.env.PUBLIC_URL + '/img/custom_avatar.png'} alt="Your avatar" style={{width:64+'px',height:64+'px'}} className="circle-img" />
+                   <DisplayAvatar profile_image={profile_image} size={96}/>
                     <p className="secondary-text">{firstName} {lastName}</p>
                     <p className="third-text">
                         {isAdmin&&(

@@ -17,9 +17,11 @@ export default class Article extends Component {
             title:'',
             comments:[{
                 hash:'2321412',
-                firstName:'Damian',
-                lastName:'Czarnota',
-                content:'Super kozacki artykuł!',
+                author:{
+                    firstName:'Damian',
+                    lastName:'Czarnota'
+                },
+                content:'Super artykuł!',
                 createDataTime:new Date().toDateString()
             }]
         }}
