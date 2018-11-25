@@ -7,7 +7,8 @@ import PropTypes from 'prop-types';
 class Grid extends Component{
     static propTypes = {
         config: PropTypes.array.isRequired,
-        data: PropTypes.array.isRequired
+        data: PropTypes.array.isRequired,
+        deleteCar: PropTypes.function
     };
     render(){
         const {config,data} = this.props;
@@ -24,7 +25,7 @@ class Grid extends Component{
                         </tr>
                     </thead>
                     <tbody>
-                    {data.length>0&&data.map(item=>(
+                    {data.length>0&&data.map((item,index)=>(
                         <tr className="table__row" key={item.id}>
                             {config.map((row,key) =>(
                                 <td className="table__cell" key={key}>
@@ -45,6 +46,7 @@ class Grid extends Component{
                             ))}
                             <td className="table__cell">
                                 <button className="btn btn-primary">Edit</button>
+                                <button className="btn btn-primary" onClick={(e)=>this.props.deleteCar(index)}>Delete</button>
                             </td>
                         </tr>
                     ))}
