@@ -55,7 +55,7 @@ class Comments extends Component{
                 {comments&&comments.map(comment =>(
                     <div className="comment" key={comment.hash}>
                         <div className="comment__author">
-                            <DisplayAvatar profile_image={comment.author.profile_image} size={64}/>
+                            <DisplayAvatar profileImage={comment.author.profileImage} size={64}/>
                             <p className="full-name">{comment.author.firstName} {comment.author.lastName}</p>
                         </div>
                         <div className="arrow-left">

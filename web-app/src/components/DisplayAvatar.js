@@ -6,14 +6,14 @@ export default class DisplayAvatar extends Component{
     }
 
     render(){
-        let {profile_image,size} = this.props;
+        let {profileImage,size} = this.props;
         return(
             <Fragment>
-                {!profile_image&&(
+                {!profileImage&&(
                     <i className="fa fa-user default-avatar" style={{fontSize:size+'px'}}></i>
                 )}
-                {profile_image&&(
-                    <img src={profile_image}  alt="Your avatar" style={{width:size+'px',height:size+'px'}} className="circle-img" />
+                {profileImage&&(
+                    <img src={`data:image/png;base64,${profileImage}`}  alt="Your avatar" style={{width:size+'px',height:size+'px'}} className="circle-img" />
                 )}
             </Fragment>
         )

@@ -20,7 +20,7 @@ export default class AddComment extends Component{
     }
 
     render(){
-        let {firstName, lastName, profile_image} = this.props.accountInfo;
+        let {firstName, lastName, profileImage} = this.props.accountInfo;
         return(
             <div className="comment">
                 <div className="comment__content">
@@ -29,7 +29,7 @@ export default class AddComment extends Component{
                 <div className="arrow-right">
                 </div>
                 <div className="comment__author">
-                    <DisplayAvatar profile_image={profile_image} size={64}/>
+                    <DisplayAvatar profileImage={profileImage} size={64}/>
                     <p className="full-name">{firstName} {lastName}</p>
                     <button className="btn btn-primary" onClick={(e) => this.props.addComment(this.state)}>Save</button>
                 </div>

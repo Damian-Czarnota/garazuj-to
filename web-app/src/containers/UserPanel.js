@@ -25,17 +25,19 @@ class UserPanel extends Component{
             lastName:'',
             email:'',
             cars:[],
-            carBoxes:[{visible:true}]
+            carBoxes:[{visible:true}],
+            profileImage:''
         };
         this.cars=[];
         this.handleChange = this.handleChange.bind(this);
         this.saveUser = this.saveUser.bind(this);
         this.changeAvatar = this.changeAvatar.bind(this);
+        this.getCars = this.getCars.bind(this);
     };
 
     componentWillMount(){
-        const {firstName, lastName, email} = this.props.accountInfo;
-        this.setState({firstName:firstName,lastName:lastName,email:email});
+        const {firstName, lastName, email, profileImage} = this.props.accountInfo;
+        this.setState({firstName:firstName,lastName:lastName,email:email, profileImage:profileImage});
     }
 
     handleChange(event){
@@ -43,8 +45,9 @@ class UserPanel extends Component{
     }
 
     saveCar = (car) =>{
-        this.cars.push(car);
-        this.setState({cars:this.cars});
+        currentUserAPI.addCar(car).then(res =>{
+            this.getCars();
+        })
     };
 
     addCar = () =>{
@@ -61,7 +64,14 @@ class UserPanel extends Component{
     saveUser = () =>{
         currentUserAPI.edit({firstName:this.state.firstName,lastName:this.state.lastName}).then(
             res =>{
-                this.props.setUserInfo(res);
+                if(res.status===200)
+                    this.props.updateUserInfo();
+        })
+    };
+
+    getCars = () =>{
+        currentUserAPI.getCars().then(res =>{
+            console.log(res);
         })
     };
 
@@ -76,9 +86,17 @@ class UserPanel extends Component{
         }
         currentUserAPI.change(files).then(
             res =>{
-                console.log(res);
+                if(res.status===200)
+                    this.props.updateUserInfo();
             }
         )
+    };
+
+    deleteAvatar = () =>{
+        currentUserAPI.deleteAvatar().then(res =>{
+            if(res.status===200)
+                this.props.updateUserInfo();
+        })
     };
 
     render(){
@@ -94,11 +112,11 @@ class UserPanel extends Component{
                         </div>
                         <div className="section__middle">
                             <div className="avatar_section">
-                               <DisplayAvatar profile_image={this.state.profile_image} size={96}/>
+                               <DisplayAvatar profileImage={this.props.accountInfo.profileImage} size={96}/>
                                 <button className="btn btn-primary">
                                     <label>Change<input type="file" accept="image/*" onChange={(e) => this.changeAvatar(e)} /></label>
                                 </button>
-                                <button className="btn btn-danger">
+                                <button onClick={this.deleteAvatar} className="btn btn-danger">
                                     Delete
                                 </button>
                             </div>

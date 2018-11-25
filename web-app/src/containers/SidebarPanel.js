@@ -14,12 +14,12 @@ const mapStateToProps = state => {
 
 class SidebarPanel extends Component{
     render(){
-        const {firstName, lastName, profile_image} = this.props.accountInfo;
+        const {firstName, lastName, profileImage} = this.props.accountInfo;
         const {isAdmin} = this.props;
         return(
             <div className="left_menu">
                 <div className="left_menu__about">
-                   <DisplayAvatar profile_image={profile_image} size={96}/>
+                   <DisplayAvatar profileImage={profileImage} size={96}/>
                     <p className="secondary-text">{firstName} {lastName}</p>
                     <p className="third-text">
                         {isAdmin&&(

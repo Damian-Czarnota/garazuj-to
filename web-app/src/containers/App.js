@@ -28,6 +28,7 @@ class App extends Component {
         this.state = {
             loading:true
         };
+        this.updateUserInfo = this.updateUserInfo.bind(this);
     }
     componentWillMount(){
         currentUserAPI.get().then(res =>{
@@ -41,6 +42,11 @@ class App extends Component {
         })
     }
 
+    updateUserInfo = () =>{
+        currentUserAPI.get().then(res =>{
+                this.props.setUserInfo(res);
+        })
+    }
   render() {
     return (
       <div className="App">
@@ -61,7 +67,7 @@ class App extends Component {
                         <div className="components_container">
                                 <Route exact path="/" render={()=> (<div></div>)}
                                 />
-                                <Route path="/profile" render={()=> (<UserPanel />)}
+                                <Route path="/profile" render={()=> (<UserPanel updateUserInfo={this.updateUserInfo}/>)}
                                 />
                                 <Route path="/cars" render={()=> (<UserCars />)}
                                 />
