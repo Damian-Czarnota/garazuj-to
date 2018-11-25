@@ -3,7 +3,6 @@
  */
 
 import React, { Component } from 'react';
-import AddCarForm from '../components/AddCarForm';
 import { connect } from "react-redux";
 import * as currentUserAPI from '../API/Me';
 import { setUserInfo } from '../actions/index';
@@ -24,15 +23,11 @@ class UserPanel extends Component{
             firstName:'',
             lastName:'',
             email:'',
-            cars:[],
-            carBoxes:[{visible:true}],
             profileImage:''
         };
-        this.cars=[];
         this.handleChange = this.handleChange.bind(this);
         this.saveUser = this.saveUser.bind(this);
         this.changeAvatar = this.changeAvatar.bind(this);
-        this.getCars = this.getCars.bind(this);
     };
 
     componentDidMount(){
@@ -44,34 +39,11 @@ class UserPanel extends Component{
         this.setState({[event.target.name]: event.target.value});
     }
 
-    saveCar = (car) =>{
-        currentUserAPI.addCar(car).then(res =>{
-            this.getCars();
-        })
-    };
-
-    addCar = () =>{
-        this.state.carBoxes.push({visible:true});
-        this.setState({carBoxes:this.state.carBoxes});
-    };
-
-    deleteCar = (index) =>{
-        this.state.carBoxes.splice(index,1);
-        this.cars.splice(index,1);
-        this.setState({carBoxes:this.state.carBoxes});
-    };
-
     saveUser = () =>{
         currentUserAPI.edit({firstName:this.state.firstName,lastName:this.state.lastName}).then(
             res =>{
                 if(res.status===200)
                     this.props.updateUserInfo();
-        })
-    };
-
-    getCars = () =>{
-        currentUserAPI.getCars().then(res =>{
-            console.log(res);
         })
     };
 
@@ -138,15 +110,6 @@ class UserPanel extends Component{
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="section">
-                        <div className="section__header">
-                            <span>Car</span>
-                            <button className="circle circle-add-car circle-primary" onClick={this.addCar}><i className="fas fa-plus"></i></button>
-                        </div>
-                        {this.state.carBoxes.map((box,key)=>(
-                            <AddCarForm key={key} saveCar={this.saveCar} deleteCar={this.deleteCar} id={key}/>
-                        ))}
                     </div>
                 </div>
             </div>

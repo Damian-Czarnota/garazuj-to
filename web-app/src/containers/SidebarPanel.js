@@ -35,7 +35,7 @@ class SidebarPanel extends Component{
                 </div>
                 <div className="left_menu__nav">
                     <ul className="nav-column">
-                        <li className="nav-column__item"><Link to="/profile">About me...</Link></li>
+                        <li className="nav-column__item"><Link to="/profile">Profile</Link></li>
                         <li className="nav-column__item"><Link to="/guides">Guides</Link></li>
                         <li className="nav-column__item">Users</li>
                         <li className="nav-column__item"><Link to="/cars">Cars</Link></li>
