@@ -1,10 +1,6 @@
 import React, {Component, Fragment} from 'react';
 
 export default class DisplayAvatar extends Component{
-    constructor(props){
-        super(props);
-    }
-
     render(){
         let {profileImage,size} = this.props;
         return(
