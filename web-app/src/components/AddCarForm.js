@@ -15,14 +15,12 @@ export default class AddCarForm extends Component{
         this.state = {
                 mark:'',
                 model:'',
-                type:'',
-                course:'',
-                YoP:'',
-                capacity:'',
-                hp:'',
-                ft:'',
-                transmission:'',
-                drive:''
+                type:'SEDAN',
+                mileage:'',
+                productionYear:'',
+                engineSize:'',
+                horsePower:'',
+                fuelType:'DIESEL'
         };
         this.handleChange = this.handleChange.bind(this);
     }
@@ -54,23 +52,23 @@ export default class AddCarForm extends Component{
                         <label className="custom_label">Type</label>
                     </div>
                     <div className="control_input">
-                        <input name="YoP" type="text" className="custom_input" value={this.state.YoP} onChange={this.handleChange} required />
+                        <input name="productionYear" type="text" className="custom_input" value={this.state.productionYear} onChange={this.handleChange} required />
                         <label className="custom_label">Year of production</label>
                     </div>
                     <div className="control_input">
-                        <input name="course" type="text" className="custom_input" value={this.state.course} onChange={this.handleChange} required />
-                        <label className="custom_label">Course</label>
+                        <input name="mileage" type="text" className="custom_input" value={this.state.mileage} onChange={this.handleChange} required />
+                        <label className="custom_label">Mileage</label>
                     </div>
                     <div className="control_input">
-                        <input name="capacity" type="text" className="custom_input" value={this.state.capacity} onChange={this.handleChange} required />
-                        <label className="custom_label">Capacity</label>
+                        <input name="engineSize" type="text" className="custom_input" value={this.state.engineSize} onChange={this.handleChange} required />
+                        <label className="custom_label">Engine size</label>
                     </div>
                     <div className="control_input">
-                        <input name="hp" type="text" className="custom_input" value={this.state.hp} onChange={this.handleChange} required />
+                        <input name="horsePower" type="text" className="custom_input" value={this.state.horsePower} onChange={this.handleChange} required />
                         <label className="custom_label">Horse power</label>
                     </div>
                     <div className="control_input">
-                        <select name="ft" type="text" className="custom_input" value={this.state.ft} onChange={this.handleChange} required>
+                        <select name="fuelType" type="text" className="custom_input" value={this.state.fuelType} onChange={this.handleChange} required>
                             <option value="DIESEL">Diesel</option>
                             <option value="LPG">LPG</option>
                             <option value="PETROL">Petrol</option>
@@ -78,14 +76,6 @@ export default class AddCarForm extends Component{
                             <option value="DIESEL_AND_LPG">Diesel+LPG</option>
                         </select>
                         <label className="custom_label">Fuel type</label>
-                    </div>
-                    <div className="control_input">
-                        <input name="transmission" type="text" className="custom_input" value={this.state.transmission} onChange={this.handleChange} required />
-                        <label className="custom_label">Transmission</label>
-                    </div>
-                    <div className="control_input">
-                        <input name="drive" type="text" className="custom_input" value={this.state.drive} onChange={this.handleChange} required />
-                        <label className="custom_label">Drive</label>
                     </div>
                 </div>
                 <div className="section__end" style={{textAlign:'center'}}>
