@@ -35,7 +35,7 @@ class UserPanel extends Component{
         this.getCars = this.getCars.bind(this);
     };
 
-    componentWillMount(){
+    componentDidMount(){
         const {firstName, lastName, email, profileImage} = this.props.accountInfo;
         this.setState({firstName:firstName,lastName:lastName,email:email, profileImage:profileImage});
     }
