@@ -13,29 +13,28 @@ export default class UserCars extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            employees: [],
-            cars: [],
+            cars:[],
             addPanelVisible: false
         };
         this.config = [
-            { key: 'mark', title: 'Mark', type: 'text' },
-            { key: 'model', title: 'Model', type: 'number' },
-            { key: 'imgSrc', title: 'Image', type: 'image' }
+            { key: 'brand', title: 'Brand', type: 'text' },
+            { key: 'model', title: 'Model', type: 'text' },
+            { key: 'productionYear', title: 'Year of production', type: 'number' }
         ];
-        this.data = [
-            {
-                'mark': 'Mazda',
-                'model': '6',
-                'imgSrc': ''
-            }
-        ];
-        this.cars = [];
         this.getCars = this.getCars.bind(this);
+        this.deleteCar = this.deleteCar.bind(this);
+    }
+
+    componentDidMount(){
+        this.getCars();
     }
 
     saveCar = (car) => {
         currentUserAPI.addCar(car).then(res => {
-            this.getCars();
+            if(res.status===200){
+                this.toggleAddCar();
+                this.getCars();
+            }
         })
     };
 
@@ -44,16 +43,20 @@ export default class UserCars extends Component {
     };
 
     deleteCar = (index) => {
-        this.cars.splice(index, 1);
+        currentUserAPI.deleteCar(index).then(res =>{
+            if(res.status===200)
+                this.getCars();
+        })
     };
 
     getCars = () => {
         currentUserAPI.getCars().then(res => {
-            console.log(res);
+            this.setState({cars:res})
         })
     };
 
     render() {
+        let {cars} = this.state;
         return (
             <div className="user-cars_panel">
                 <div className="header">
@@ -71,10 +74,10 @@ export default class UserCars extends Component {
                             null
                         }
                         <div className="section__middle">
-                            {this.data.length > 0 && (
-                                <Grid config={this.config} data={this.data} deleteCar={this.deleteCar}/>
+                            {cars.length > 0 && (
+                                <Grid config={this.config} data={cars} deleteCar={this.deleteCar}/>
                             )}
-                            {this.data.length === 0 && (
+                            {cars.length === 0 && (
                                 <div className="empty-grid">
                                     <i className="fab fa-connectdevelop"></i>
                                     <p>You don't have any car.</p>

@@ -8,7 +8,7 @@ class Grid extends Component{
     static propTypes = {
         config: PropTypes.array.isRequired,
         data: PropTypes.array.isRequired,
-        deleteCar: PropTypes.function
+        deleteCar: PropTypes.func
     };
     render(){
         const {config,data} = this.props;
@@ -46,7 +46,7 @@ class Grid extends Component{
                             ))}
                             <td className="table__cell">
                                 <button className="btn btn-primary">Edit</button>
-                                <button className="btn btn-primary" onClick={(e)=>this.props.deleteCar(index)}>Delete</button>
+                                <button className="btn btn-danger" onClick={(e)=>this.props.deleteCar(item['id'])}>Delete</button>
                             </td>
                         </tr>
                     ))}
