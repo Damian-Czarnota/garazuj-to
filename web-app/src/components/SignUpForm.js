@@ -6,6 +6,7 @@ import React, { Component } from 'react';
 import * as AuthAPI from '../API/Auth';
 import { register } from '../actions/index';
 import { connect } from "react-redux";
+import {showError, clearErrors} from "../utilities";
 
 const mapDispatchToProps = dispatch  => {
     return { register: value => dispatch(register(value)) };
@@ -36,11 +37,37 @@ class SignUpForm extends Component {
     }
 
     createAccount(e){
+        clearErrors();
+        let {user} = this.state;
+        let validate = true;
         e.preventDefault();
-        AuthAPI.createAccount(this.state.user).then(res =>{
-            if(res.status===200)
-                this.setState({registered:true})
-        })
+        if(user.username===''){
+            showError('username','This field is required');
+            validate = false;
+        }
+        if(user.firstName===''){
+            showError('firstName','This field is required');
+            validate = false;
+        }
+        if(user.lastName===''){
+            showError('lastName','This field is required');
+            validate = false;
+        }
+        if(user.password===''||user.password.length<6){
+            showError('password','Password should have at least 6 characters');
+            validate = false;
+        }
+        if(user.email===''||!user.email.includes('@')){
+            showError('email','Enter valid address email');
+            validate = false;
+        }
+        if(validate)
+            AuthAPI.createAccount(this.state.user).then(res =>{
+                if(res.status===400)
+                    showError('username','Already exists user with this username');
+                if(res.status===200)
+                    this.setState({registered:true})
+            })
     }
 
     signIn(){
@@ -63,12 +90,12 @@ class SignUpForm extends Component {
                     <input className="input-style" type="text" name="firstName" placeholder="First Name" value={this.state.firstName} onChange={this.handleChange} required />
                     </label>
                     <label style={{display:'block'}}>
-                    <input className="input-style" type="text" name="lastName" placeholder="Last Name" value={this.state.lastName} onChange={this.handleChange}required />
+                    <input className="input-style" type="text" name="lastName" placeholder="Last Name" value={this.state.lastName} onChange={this.handleChange} required />
                     </label>
                     <label style={{display:'block'}}>
                     <input className="input-style" type="email" name="email" placeholder="E-Mail" value={this.state.email} onChange={this.handleChange} required />
                     </label>
-                    <button type="send" onClick={(e) =>this.createAccount(e)} style={{width:15+'vw'}} className="btn btn-primary">Send</button>
+                    <button  onClick={(e) =>this.createAccount(e)} style={{width:15+'vw'}} className="btn btn-primary">Send</button>
             </div>
                 )}
                 {this.state.registered&&(

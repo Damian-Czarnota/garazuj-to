@@ -7,6 +7,7 @@ import { register,authenticate,setUserInfo, isAdmin } from '../actions/index';
 import { connect } from "react-redux";
 import * as AuthAPI from '../API/Auth';
 import * as UT from '../utilities';
+import {showError,clearErrors} from "../utilities";
 
 const mapDispatchToProps = dispatch  => {
     return { register: value => dispatch(register(value)),
@@ -37,16 +38,31 @@ class SignInForm extends Component {
 
     logIn(e){
         e.preventDefault();
-        AuthAPI.logIn(this.state).then(
-            res =>{
-                if(res.authorities) {
-                    this.props.authenticate(true);
-                    this.props.isAdmin(UT.checkIfAdmin(res.userDetails));
-                    this.props.setUserInfo(res.userDetails);
-                    sessionStorage.setItem('Authorization',res.token);
+        clearErrors();
+        let validate = true;
+        if(this.state.username===''){
+            showError('username','This field is required');
+            validate = false;
+        }
+        if(this.state.password===''||this.state.password.length<6){
+            showError('password','This field should have at least 6 characters');
+            validate = false;
+        }
+        if(validate)
+            AuthAPI.logIn(this.state).then(
+                res =>{
+                    if(res.status){
+                        showError('username');
+                        showError('password','Bad username or password');
+                    }
+                    if(res.authorities) {
+                        this.props.authenticate(true);
+                        this.props.isAdmin(UT.checkIfAdmin(res.userDetails));
+                        this.props.setUserInfo(res.userDetails);
+                        sessionStorage.setItem('Authorization',res.token);
+                    }
                 }
-            }
-        )
+            )
     }
 
     render(){

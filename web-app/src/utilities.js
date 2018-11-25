@@ -16,3 +16,21 @@ export const checkIfAdmin = (object) =>{
     }
     return result;
 };
+
+export const showError = (label,text) =>{
+    let el = document.querySelector(`input[name="${label}"]`);
+    el.classList.add("input-error");
+    if(text)
+        el.insertAdjacentHTML('afterend',`<p class="error-text">${text}</p>`);
+};
+
+export const clearErrors = () =>{
+    let inputArr = document.querySelectorAll('.input-error');
+    inputArr.forEach(el =>{
+        el.classList.remove('input-error');
+    });
+    let textArr = document.querySelectorAll('.error-text');
+    textArr.forEach(el =>{
+        el.remove();
+    })
+};
