@@ -13,6 +13,9 @@ const mapStateToProps = state => {
 };
 
 class SidebarPanel extends Component{
+    constructor(props){
+        super(props);
+    }
     render(){
         const {firstName, lastName, profileImage} = this.props.accountInfo;
         const {isAdmin} = this.props;
@@ -36,6 +39,7 @@ class SidebarPanel extends Component{
                         <li className="nav-column__item"><Link to="/guides">Guides</Link></li>
                         <li className="nav-column__item">Users</li>
                         <li className="nav-column__item"><Link to="/cars">Cars</Link></li>
+                        <li onClick={this.props.logout} className="nav-column__item">Logout</li>
                     </ul>
                 </div>
             </div>

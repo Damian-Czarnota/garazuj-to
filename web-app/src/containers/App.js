@@ -29,6 +29,7 @@ class App extends Component {
             loading:true
         };
         this.updateUserInfo = this.updateUserInfo.bind(this);
+        this.logout = this.logout.bind(this);
     }
     componentWillMount(){
         currentUserAPI.get().then(res =>{
@@ -46,7 +47,12 @@ class App extends Component {
         currentUserAPI.get().then(res =>{
                 this.props.setUserInfo(res);
         })
-    }
+    };
+
+    logout=() =>{
+      sessionStorage.removeItem('Authorization');
+      this.props.authenticate(false);
+    };
   render() {
     return (
       <div className="App">
@@ -63,7 +69,7 @@ class App extends Component {
                 )}
                 {this.props.authenticated&&(
                     <div className="app_container">
-                        <SidebarPanel />
+                        <SidebarPanel logout={this.logout}/>
                         <div className="components_container">
                                 <Route exact path="/" render={()=> (<div></div>)}
                                 />
