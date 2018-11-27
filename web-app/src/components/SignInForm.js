@@ -3,17 +3,14 @@
  */
 
 import React, { Component } from 'react';
-import { register,authenticate,setUserInfo, isAdmin } from '../actions/index';
+import { register,authenticate } from '../actions/index';
 import { connect } from "react-redux";
 import * as AuthAPI from '../API/Auth';
-import * as UT from '../utilities';
 import {showError,clearErrors} from "../utilities";
 
 const mapDispatchToProps = dispatch  => {
     return { register: value => dispatch(register(value)),
-            authenticate: value => dispatch(authenticate(value)),
-            setUserInfo:value => dispatch(setUserInfo(value)),
-            isAdmin: value => dispatch(isAdmin(value))};
+            authenticate: value => dispatch(authenticate(value))};
 };
 
 class SignInForm extends Component {
@@ -56,10 +53,9 @@ class SignInForm extends Component {
                         showError('password','Bad username or password');
                     }
                     if(res.authorities) {
-                        this.props.authenticate(true);
-                        this.props.isAdmin(UT.checkIfAdmin(res.userDetails));
-                        this.props.setUserInfo(res.userDetails);
                         sessionStorage.setItem('Authorization',res.token);
+                        this.props.updateUserInfo();
+                        this.props.authenticate(true);
                     }
                 }
             )

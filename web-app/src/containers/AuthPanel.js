@@ -3,36 +3,20 @@
  */
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { authenticate } from '../actions/index';
-import * as Auth from '../API/Auth';
 import SignUpForm from '../components/SignUpForm';
 import SignInForm from '../components/SignInForm';
 
 const mapStateToProps = state => {
-    return { authenticated: state.authenticated,
-             register: state.register};
-};
-
-const mapDispatchToProps = dispatch  => {
-    return { authenticate: value => dispatch(authenticate(value)) };
+    return { register: state.register};
 };
 
 class AuthPanel extends Component{
-    logOut(){
-        Auth.logout().then(resp =>{
-            this.props.authenticate(false)
-        },
-        error =>{
-            console.log('error');
-        })
-    }
-
     render(){
         return (
             <div className="sign_panel">
                 <i className="fas fa-user-shield" />
                 {!this.props.register&&(
-                    <SignInForm />
+                    <SignInForm updateUserInfo = {this.props.updateUserInfo} />
                 )}
                 {this.props.register&&(
                     <SignUpForm />
@@ -42,4 +26,4 @@ class AuthPanel extends Component{
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AuthPanel)
+export default connect(mapStateToProps)(AuthPanel)
