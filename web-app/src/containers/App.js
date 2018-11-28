@@ -65,7 +65,7 @@ class App extends Component {
           {!this.state.loading&&this.props.authenticated!=null&&(
           <Fragment>
                 {!this.props.authenticated&&(
-                    <AuthPanel updateUserInfo={this.updateUserInfo}/>
+                    <AuthPanel />
                 )}
                 {this.props.authenticated&&(
                     <div className="app_container">
