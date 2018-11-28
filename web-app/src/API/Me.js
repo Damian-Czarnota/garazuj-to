@@ -32,27 +32,9 @@ export const change = (file) =>{
         .then(res => res);
 };
 
-export const addCar = (car) =>
-    fetch (`${URL}/car`,{
-        method:'POST',
-        headers:headers,
-        body:JSON.stringify(car)
-    }).then(res => res);
-
-export const getCars = () =>
-    fetch (`${URL}/car`,{
-        method:'GET',
-        headers:headers
-    }).then(res => res.json());
-
 export const deleteAvatar = () =>
     fetch (`${URL}/me`,{
         method:'DELETE',
         headers:headers
     }).then(res => res);
 
-export const deleteCar = (index) =>
-    fetch (`${URL}/car?index=${index}`,{
-        method:'DELETE',
-        headers:headers
-    }).then(res => res);

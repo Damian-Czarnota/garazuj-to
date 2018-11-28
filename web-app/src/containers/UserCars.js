@@ -4,7 +4,7 @@
 
 import React, { Component } from 'react';
 import AddCarForm from '../components/AddCarForm';
-import * as currentUserAPI from '../API/Me';
+import * as carAPI from '../API/CarAPI';
 import Grid from "../components/Grid";
 import { Link } from 'react-router-dom';
 
@@ -30,7 +30,7 @@ export default class UserCars extends Component {
     }
 
     saveCar = (car) => {
-        currentUserAPI.addCar(car).then(res => {
+        carAPI.addCar(car).then(res => {
             if(res.status===200){
                 this.toggleAddCar();
                 this.getCars();
@@ -43,14 +43,14 @@ export default class UserCars extends Component {
     };
 
     deleteCar = (index) => {
-        currentUserAPI.deleteCar(index).then(res =>{
+        carAPI.deleteCar(index).then(res =>{
             if(res.status===200)
                 this.getCars();
         })
     };
 
     getCars = () => {
-        currentUserAPI.getCars().then(res => {
+        carAPI.getCars().then(res => {
             this.setState({cars:res})
         })
     };
@@ -69,13 +69,13 @@ export default class UserCars extends Component {
                             <button className="circle circle-add-car circle-primary" onClick={this.toggleAddCar}><i className="fas fa-plus"></i></button>
                         </div>
                         {this.state.addPanelVisible ?
-                            <AddCarForm saveCar={this.saveCar} />
+                            <AddCarForm saveCar={this.saveCar} getCars={this.getCars} />
                             :
                             null
                         }
                         <div className="section__middle">
                             {cars.length > 0 && (
-                                <Grid config={this.config} data={cars} deleteCar={this.deleteCar}/>
+                                <Grid config={this.config} data={cars} deleteCar={this.deleteCar} getCars={this.getCars}/>
                             )}
                             {cars.length === 0 && (
                                 <div className="empty-grid">

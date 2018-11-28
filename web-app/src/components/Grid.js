@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import EditCarModal from './EditCarModal';
 
 class Grid extends Component{
     static propTypes = {
@@ -45,7 +46,7 @@ class Grid extends Component{
                                 </td>
                             ))}
                             <td className="table__cell">
-                                <button className="btn btn-primary">Edit</button>
+                                <EditCarModal car={item} getCars={this.props.getCars} />
                                 <button className="btn btn-danger" onClick={(e)=>this.props.deleteCar(item['id'])}>Delete</button>
                             </td>
                         </tr>

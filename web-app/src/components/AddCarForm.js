@@ -7,21 +7,36 @@ import PropTypes from 'prop-types';
 
 export default class AddCarForm extends Component {
     static propTypes = {
-        saveCar: PropTypes.func.isRequired
+        saveCar: PropTypes.func.isRequired,
+        car:PropTypes.object
     };
 
     constructor(props) {
         super(props);
-        this.state = {
-            brand: '',
-            model: '',
-            type: 'SEDAN',
-            mileage: '',
-            productionYear: '',
-            engineSize: '',
-            horsePower: '',
-            fuelType: 'DIESEL'
-        };
+        const {car} = this.props;
+        if(car)
+            this.state = {
+                id:car.id,
+                brand: car.brand,
+                model: car.model,
+                type: car.type,
+                mileage: car.mileage,
+                productionYear: car.productionYear,
+                engineSize: car.engineSize,
+                horsePower: car.horsePower,
+                fuelType: car.fuelType
+            };
+        else
+            this.state = {
+                brand: '',
+                model: '',
+                type: 'SEDAN',
+                mileage: '',
+                productionYear: '',
+                engineSize: '',
+                horsePower: '',
+                fuelType: 'DIESEL'
+            };
         this.handleChange = this.handleChange.bind(this);
     }
 

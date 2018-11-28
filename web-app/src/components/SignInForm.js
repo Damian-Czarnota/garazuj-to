@@ -56,10 +56,11 @@ class SignInForm extends Component {
                         showError('password','Bad username or password');
                     }
                     if(res.authorities) {
-                        this.props.authenticate(true);
-                        this.props.isAdmin(UT.checkIfAdmin(res.userDetails));
-                        this.props.setUserInfo(res.userDetails);
+                        let {userDetails} = res;
                         sessionStorage.setItem('Authorization',res.token);
+                        this.props.authenticate(true);
+                        this.props.isAdmin(UT.checkIfAdmin(userDetails.user));
+                        this.props.setUserInfo(userDetails.user);
                     }
                 }
             )
