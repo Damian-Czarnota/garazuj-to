@@ -8,14 +8,16 @@ import { EditorState} from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import * as ArticleAPI from '../API/ArticleAPI';
-
+import {convertFromRaw, convertToRaw} from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
 
 export default class AddArticleModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
             editorState: EditorState.createEmpty(),
-            title:''
+            title:'',
+            shortDescription:''
         };
         this.addArticle = this.addArticle.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -32,8 +34,11 @@ export default class AddArticleModal extends Component {
     }
 
     addArticle = () =>{
-        ArticleAPI.add(this.state).then(res =>{
-
+        ArticleAPI.add({title:this.state.title, shortDescription:this.state.shortDescription, content:JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent()))}).then(res =>{
+            if(!res.status) {
+                this.props.onClose();
+                this.props.getArticles();
+            }
         })
     };
 
@@ -52,6 +57,10 @@ export default class AddArticleModal extends Component {
                             <div className="control_input">
                                 <input name="title" type="text" className="custom_input" style={{width:99+'%',marginBottom:24+'px'}} value={this.state.title} onChange={this.handleChange} required />
                                 <label className="custom_label">Title</label>
+                            </div>
+                            <div className="control_input">
+                                <textarea maxLength="500" name="shortDescription" type="text" className="custom_input" style={{width:99+'%',marginBottom:24+'px'}} value={this.state.shortDescription} onChange={this.handleChange} required />
+                                <label className="custom_label">Short Description</label>
                             </div>
                             <Editor
                                 editorState={this.state.editorState}

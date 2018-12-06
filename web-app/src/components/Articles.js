@@ -6,12 +6,29 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom'
 import AddArticle from '../containers/AddArticle';
+import * as ArticleAPI from '../API/ArticleAPI';
 
 export default class Articles extends Component {
+    constructor(props){
+        super(props);
+        this.state={
+            articles:[]
+        };
+        this.getArticles = this.getArticles.bind(this);
+    }
 
-    static propTypes = {
-        articles: PropTypes.array.isRequired
-    };
+    componentWillMount(){
+        this.getArticles()
+    }
+
+    getArticles(){
+        ArticleAPI.getAll().then(res =>{
+            if(!res.status){
+                this.setState({articles:res})
+            }
+        })
+    }
+
     render(){
         return(
             <div className="guides_panel">
@@ -22,20 +39,26 @@ export default class Articles extends Component {
                     <div className="section">
                         <div className="section__header">
                             <span>&nbsp;</span>
-                            <AddArticle />
+                            <AddArticle getArticles={this.getArticles} />
                         </div>
                     </div>
                     <div className="section">
                         <div className="section__middle">
-                            {this.props.articles&&this.props.articles.map(article =>(<div key={article.hash} className="article">
+                            {this.state.articles.length>0&&this.state.articles.map(article =>(<div key={article.id} className="article">
                                 <div className="article__image">
-                                    <img alt={article.title} src={article.img} />
+                                    <i className="fas fa-book-open icon"></i>
                                 </div>
                                 <div className="article__description">
                                     <p className="title">{article.title}</p>
-                                    <p className="content">{article.shortDescription} <Link className="link" to={`/guide/${article.hash}`}>Read more...</Link></p>
+                                    <p className="content">{article.shortDescription} <Link className="link" to={`/guide/${article.id}`}>Read more...</Link></p>
                                 </div>
                             </div>))}
+                            {this.state.articles.length===0&&(
+                                <div className="empty-grid">
+                                    <i className="fab fa-connectdevelop"></i>
+                                    <p>There is no guides.</p>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

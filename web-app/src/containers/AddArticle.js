@@ -9,15 +9,14 @@ const ModalTrigger = ({onOpen}) => <button className="circle circle-add-car circ
 
 
 export default class AddArticle extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             isOpen:false,
             title:''
         };
         this.onOpen = this.onOpen.bind(this);
         this.handleChange = this.handleChange.bind(this);
-
     }
 
     handleChange(event){
@@ -37,7 +36,7 @@ export default class AddArticle extends Component {
             <Fragment>
                 <ModalTrigger onOpen={this.onOpen} />
                 {isOpen&&(
-                    <AddArticleModal onClose={this.onClose}/>
+                    <AddArticleModal getArticles={this.props.getArticles} onClose={this.onClose}/>
                 )}
             </Fragment>
         );
