@@ -1,27 +1,40 @@
-import { headers,fileUploadHeader, URL } from './config';
+import { URL } from './config';
+import {getToken} from '../actions/index';
 
 export const addCar = (car) =>
     fetch (`${URL}/car`,{
         method:'POST',
-        headers:headers,
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization': getToken()
+        },
         body:JSON.stringify(car)
     }).then(res => res);
 
 export const getCars = () =>
     fetch (`${URL}/car`,{
         method:'GET',
-        headers:headers
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization': getToken()
+        }
     }).then(res => res.json());
 
 export const deleteCar = (index) =>
     fetch (`${URL}/car?index=${index}`,{
         method:'DELETE',
-        headers:headers
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization': getToken()
+        }
     }).then(res => res);
 
 export const editCar = (car) =>
     fetch (`${URL}/car`,{
         method:'PUT',
-        headers:headers,
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization': getToken()
+        },
         body:JSON.stringify(car)
     }).then(res => res);

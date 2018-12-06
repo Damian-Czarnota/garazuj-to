@@ -2,19 +2,26 @@
  * Created by Damian.Czarnota on 2018-11-07.
  */
 
-import { headers,fileUploadHeader, URL } from './config';
+import { URL } from './config';
+import {getToken} from '../actions/index';
 
 export const get = () =>
     fetch(`${URL}/me`,{
         method:'GET',
-        headers:headers
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization': getToken()
+        }
     })
         .then(res => res.json());
 
 export const edit = (data) =>
     fetch(`${URL}/me`,{
         method:'PUT',
-        headers:headers,
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization': getToken()
+        },
         body:JSON.stringify(data)
     })
         .then(res => res);
@@ -26,7 +33,6 @@ export const change = (file) =>{
     }),file[0].name);
     return fetch(`${URL}/me`,{
         method:'POST',
-        headers:fileUploadHeader,
         body:fd
     })
         .then(res => res);
@@ -35,6 +41,9 @@ export const change = (file) =>{
 export const deleteAvatar = () =>
     fetch (`${URL}/me`,{
         method:'DELETE',
-        headers:headers
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization': getToken()
+        }
     }).then(res => res);
 
