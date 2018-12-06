@@ -7,13 +7,19 @@ import * as ArticleAPI from '../API/ArticleAPI';
 import Comments from '../components/Comments';
 import draftToHtml from 'draftjs-to-html';
 import {Redirect} from 'react-router-dom';
+import { connect } from "react-redux";
 
-export default class Article extends Component {
+const mapStateToProps = state => {
+    return { isAdmin: state.isAdmin,
+            userInfo: state.userInfo};
+};
+
+class Article extends Component {
 
     constructor(props){
         super(props);
         this.state={
-            redirect:false,
+            canDelete:false,
             article: {
             title:'',
             comments:[{
@@ -33,21 +39,21 @@ export default class Article extends Component {
         ArticleAPI.get(articleHash).then(res =>{
             if(!res.status){
                 this.setState({article:res});
+                let {author} = res;
+                if(author.id===this.props.userInfo.id||this.props.isAdmin)
+                    this.setState({canDelete:true})
             }
         })
     }
 
     deleteArticle(id){
         ArticleAPI.deleteArticle(id).then(res =>{
-            this.setState({redirect:true});
+            this.props.history.push("/guides");
         })
     }
     render(){
-        let {article,redirect} = this.state;
+        let {article} = this.state;
         let {comments} = article;
-        if(redirect)
-            return <Redirect to="/guides" />;
-        else
             return(
                 <div className="guides_panel">
                     <div className="header">
@@ -62,11 +68,13 @@ export default class Article extends Component {
                         <div className="section">
                             <div className="section__middle">
                                 {this.state.article.content&&(
-                                <div contentEditable='false' dangerouslySetInnerHTML={{ __html: `${draftToHtml(JSON.parse(this.state.article.content))}` }}>
+                                <div id="content-container" contentEditable='false' dangerouslySetInnerHTML={{ __html: `${draftToHtml(JSON.parse(this.state.article.content))}` }}>
 
                                 </div>)}
                             </div>
-                            <button className="btn btn-danger text-right" onClick={(e) => this.deleteArticle(article.id)}>Delete</button>
+                            {this.state.canDelete&&(
+                                <button className="btn btn-danger text-right" onClick={(e) => this.deleteArticle(article.id)}>Delete</button>
+                            )}
                         </div>
                     </div>
                     <div className="content">
@@ -85,3 +93,5 @@ export default class Article extends Component {
             )
     }
 }
+
+export default connect(mapStateToProps)(Article);

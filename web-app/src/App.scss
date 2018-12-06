@@ -523,3 +523,9 @@ input:disabled{
   border-width: 40px 40px 0 0;
   border-color: $fourth-gray transparent transparent transparent;
 }
+
+#content-container{
+  img{
+    max-width:90%;
+  }
+}

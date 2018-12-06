@@ -6,7 +6,7 @@ import { URL } from './config';
 import {getToken} from '../actions/index';
 
 export const get = (id) =>
-    fetch(`${URL}/post?id=${id}`,{
+    fetch(`${URL}/post/${id}`,{
         method:'GET',
         headers:{
             'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ export const add = (article) =>
     .then(res => res.json());
 
 export const getAll = () =>
-    fetch(`${URL}/posts`,{
+    fetch(`${URL}/post`,{
         method:'GET',
         headers:{
             'Content-Type': 'application/json',
