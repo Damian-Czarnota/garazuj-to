@@ -22,7 +22,7 @@ class SignUpForm extends Component {
                 email: '',
                 username: '',
                 password: '',
-                role: ['admin']
+                role: ['user']
             },
             registered:false
         };
