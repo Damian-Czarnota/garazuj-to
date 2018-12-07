@@ -6,7 +6,6 @@ import React, {Component} from 'react';
 import * as ArticleAPI from '../API/ArticleAPI';
 import Comments from '../components/Comments';
 import draftToHtml from 'draftjs-to-html';
-import {Redirect} from 'react-router-dom';
 import { connect } from "react-redux";
 
 const mapStateToProps = state => {
@@ -20,18 +19,8 @@ class Article extends Component {
         super(props);
         this.state={
             canDelete:false,
-            article: {
-            title:'',
-            comments:[{
-                hash:'2321412',
-                author:{
-                    firstName:'Damian',
-                    lastName:'Czarnota'
-                },
-                content:'Super artykuł!',
-                createDataTime:new Date().toDateString()
-            }]
-        }};
+            article:''
+        };
         this.deleteArticle = this.deleteArticle.bind(this);
     }
     componentDidMount(){
@@ -85,7 +74,7 @@ class Article extends Component {
                         </div>
                         <div className="section">
                             <div className="section__middle">
-                                <Comments comments={comments} label={'guide'} hash={this.state.article.hash}/>
+                                <Comments comments={comments} label={'guide'} hash={this.state.article.id}/>
                             </div>
                         </div>
                     </div>

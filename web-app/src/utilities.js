@@ -34,3 +34,8 @@ export const clearErrors = () =>{
         el.remove();
     })
 };
+
+export const dataFromTimestampToString = (data) => {
+        let index = data.indexOf('T');
+        return `${data.slice(index+1,index+9)} ${data.slice(0,index)}`;
+};
