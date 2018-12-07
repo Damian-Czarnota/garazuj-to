@@ -33,6 +33,9 @@ export const change = (file) =>{
     }),file[0].name);
     return fetch(`${URL}/me`,{
         method:'POST',
+        headers:{
+            'Authorization': getToken()
+        },
         body:fd
     })
         .then(res => res);
