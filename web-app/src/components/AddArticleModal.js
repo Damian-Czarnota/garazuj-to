@@ -8,8 +8,7 @@ import { EditorState} from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import * as ArticleAPI from '../API/ArticleAPI';
-import {convertFromRaw, convertToRaw} from 'draft-js';
-import draftToHtml from 'draftjs-to-html';
+import { convertToRaw} from 'draft-js';
 
 export default class AddArticleModal extends Component {
     constructor(props) {
