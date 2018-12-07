@@ -1,12 +1,12 @@
 /**
- * Created by Damian.Czarnota on 2018-11-19.
+ * Created by Damian.Czarnota on 2018-12-07.
  */
 
 import { URL } from './config';
 import {getToken} from '../actions/index';
 
-export const get = (id) =>
-    fetch(`${URL}/post/${id}`,{
+export const getPostComments = (id) =>
+    fetch(`${URL}/comment/post/${id}`,{
         method:'GET',
         headers:{
             'Content-Type': 'application/json',
@@ -15,29 +15,19 @@ export const get = (id) =>
     })
         .then(res => res.json());
 
-export const add = (article) =>
-    fetch(`${URL}/post`,{
-    method:'POST',
-    headers:{
-        'Content-Type': 'application/json',
-        'Authorization': getToken()
-    },
-    body:JSON.stringify(article)
-})
-    .then(res => res.json());
-
-export const getAll = () =>
-    fetch(`${URL}/post`,{
-        method:'GET',
+export const addPostComment = (id,content) =>
+    fetch(`${URL}/comment/post/${id}`,{
+        method:'PUT',
         headers:{
             'Content-Type': 'application/json',
             'Authorization': getToken()
-        }
+        },
+        body:JSON.stringify(content)
     })
-        .then(res => res.json());
+        .then(res => res);
 
-export const deleteArticle = (id) =>
-    fetch(`${URL}/post?id=${id}`,{
+export const deleteComment = (commentId) =>
+    fetch(`${URL}/comment/${commentId}`,{
         method:'DELETE',
         headers:{
             'Content-Type': 'application/json',

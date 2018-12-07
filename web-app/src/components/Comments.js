@@ -8,6 +8,7 @@ import AddComment from './AddComment';
 import { connect } from "react-redux";
 import DisplayAvatar from "./DisplayAvatar";
 import * as ArticleAPI from '../API/ArticleAPI';
+import * as CommentAPI from '../API/CommentsAPI';
 import { dataFromTimestampToString } from '../utilities';
 const mapStateToProps = state => {
     return { accountInfo: state.userInfo,
@@ -36,7 +37,7 @@ class Comments extends Component{
     getComments = () =>{
         const {label,hash} = this.props;
         if(label==='guide'){
-        ArticleAPI.getComments(hash).then(res =>{
+            CommentAPI.getPostComments(hash).then(res =>{
             this.setState({comments:res})
         })
         }
@@ -49,7 +50,7 @@ class Comments extends Component{
     addComment = (content) =>{
         const {label,hash} = this.props;
         if(label==='guide'){
-        ArticleAPI.addComment(hash,content).then(res =>{
+            CommentAPI.addPostComment(hash,content).then(res =>{
             if(res.status===200)
                 this.getComments();
         })
@@ -63,7 +64,7 @@ class Comments extends Component{
     deleteComment = (commentId) =>{
         const {label,hash} = this.props;
         if(label==='guide'){
-            ArticleAPI.deleteComment(hash,commentId).then(res =>{
+            CommentAPI.deleteComment(commentId).then(res =>{
                 if(res.status===200)
                     this.getComments();
             })
