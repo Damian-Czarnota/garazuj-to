@@ -21,7 +21,7 @@ export const getCars = () =>
     }).then(res => res.json());
 
 export const deleteCar = (index) =>
-    fetch (`${URL}/car?index=${index}`,{
+    fetch (`${URL}/car?id=${index}`,{
         method:'DELETE',
         headers:{
             'Content-Type': 'application/json',
