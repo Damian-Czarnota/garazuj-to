@@ -19,10 +19,13 @@ export default class UserCars extends Component {
         this.config = [
             { key: 'brand', title: 'Brand', type: 'text' },
             { key: 'model', title: 'Model', type: 'text' },
-            { key: 'productionYear', title: 'Year of production', type: 'number' }
+            { key: 'productionYear', title: 'Year of production', type: 'number' },
+            {key:'action', button:[
+                {type:'delete'},
+                {type:'edit-car'}]}
         ];
         this.getCars = this.getCars.bind(this);
-        this.deleteCar = this.deleteCar.bind(this);
+        this.deleteItem = this.deleteItem.bind(this);
     }
 
     componentDidMount(){
@@ -42,7 +45,7 @@ export default class UserCars extends Component {
         this.setState({ addPanelVisible: !this.state.addPanelVisible });
     };
 
-    deleteCar = (index) => {
+    deleteItem = (index) => {
         carAPI.deleteCar(index).then(res =>{
             if(res.status===200)
                 this.getCars();
@@ -75,7 +78,7 @@ export default class UserCars extends Component {
                         }
                         <div className="section__middle">
                             {cars.length > 0 && (
-                                <Grid config={this.config} data={cars} deleteCar={this.deleteCar} getCars={this.getCars}/>
+                                <Grid config={this.config} data={cars} deleteItem={this.deleteItem} getCars={this.getCars}/>
                             )}
                             {cars.length === 0 && (
                                 <div className="empty-grid">
