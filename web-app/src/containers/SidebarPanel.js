@@ -13,16 +13,14 @@ const mapStateToProps = state => {
 };
 
 class SidebarPanel extends Component{
-    constructor(props){
-        super(props);
-    }
+
     render(){
         const {firstName, lastName, profileImage} = this.props.accountInfo;
         const {isAdmin} = this.props;
         return(
             <div className="left_menu">
                 <div className="left_menu__about">
-                   <DisplayAvatar profileImage={profileImage} size={96}/>
+                   <DisplayAvatar image={profileImage} size={96}/>
                     <p className="secondary-text">{firstName} {lastName}</p>
                     <p className="third-text">
                         {isAdmin&&(
@@ -37,7 +35,7 @@ class SidebarPanel extends Component{
                     <ul className="nav-column">
                         <li className="nav-column__item"><Link to="/profile">Profile</Link></li>
                         <li className="nav-column__item"><Link to="/guides">Guides</Link></li>
-                        <li className="nav-column__item">Users</li>
+                        <li className="nav-column__item"><Link to="/users">Users</Link></li>
                         <li className="nav-column__item"><Link to="/cars">Cars</Link></li>
                         <li onClick={this.props.logout} className="nav-column__item">Logout</li>
                     </ul>

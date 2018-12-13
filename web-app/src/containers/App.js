@@ -11,6 +11,8 @@ import { Route,withRouter  } from 'react-router-dom'
 import { authenticate, setUserInfo,isAdmin } from '../actions/index';
 import * as currentUserAPI from '../API/Me';
 import * as UT from '../utilities';
+import UsersPanel from '../containers/UsersPanel';
+import UserDetailsPanel from '../containers/UserDetailsPanel';
 
 const mapStateToProps = state => {
   return { authenticated: state.authenticated };
@@ -77,9 +79,15 @@ class App extends Component {
                                 />
                                 <Route path="/cars" render={()=> (<UserCars />)}
                                 />
+                                <Route path="/users" render={()=> (<UsersPanel />)}
+                                />
                                 <Route path="/guides" render={()=> (<GuidesPanel />)}
                                 />
                                 <Route path="/guide/:articleHash" component={Article}
+                                />
+                                <Route path="/user/:userID" component={UserDetailsPanel}
+                                />
+                                <Route path="/car/:carID"
                                 />
                         </div>
                     </div>
