@@ -36,7 +36,7 @@ export default class AddComment extends Component{
                 <div className="arrow-right">
                 </div>
                 <div className="comment__author">
-                    <DisplayAvatar profileImage={profileImage} size={64}/>
+                    <DisplayAvatar image={profileImage} size={64}/>
                     <p className="full-name">{firstName} {lastName}</p>
                     <button className="btn btn-primary" onClick={(e) => this.addComment()}>Save</button>
                 </div>

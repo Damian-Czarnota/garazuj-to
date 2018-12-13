@@ -84,7 +84,7 @@ class UserPanel extends Component{
                         </div>
                         <div className="section__middle">
                             <div className="avatar_section">
-                               <DisplayAvatar profileImage={this.props.accountInfo.profileImage} size={96}/>
+                               <DisplayAvatar image={this.props.accountInfo.profileImage} size={96}/>
                                 <button className="btn btn-primary">
                                     <label>Change<input type="file" accept="image/*" onChange={(e) => this.changeAvatar(e)} /></label>
                                 </button>

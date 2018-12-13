@@ -78,7 +78,7 @@ class Comments extends Component{
                 {comments&&comments.map(comment =>(
                     <div className="comment" key={comment.id}>
                         <div className="comment__author">
-                            <DisplayAvatar profileImage={comment.author.profileImage} size={64}/>
+                            <DisplayAvatar image={comment.author.profileImage} size={64}/>
                             <p className="full-name">{comment.author.firstName} {comment.author.lastName}</p>
                         </div>
                         <div className="arrow-left">
