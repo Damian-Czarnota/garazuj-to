@@ -35,3 +35,24 @@ export const deleteComment = (commentId) =>
         }
     })
         .then(res => res);
+
+export const getCarComments = (id) =>
+    fetch(`${URL}/comment/car/${id}`,{
+        method:'GET',
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization': getToken()
+        }
+    })
+        .then(res => res.json());
+
+export const addCarComment = (id,content) =>
+    fetch(`${URL}/comment/car/${id}`,{
+        method:'PUT',
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization': getToken()
+        },
+        body:JSON.stringify(content)
+    })
+        .then(res => res);
