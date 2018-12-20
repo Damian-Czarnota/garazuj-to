@@ -66,18 +66,7 @@ class Article extends Component {
                             )}
                         </div>
                     </div>
-                    <div className="content">
-                        <div className="section">
-                            <div className="section__header">
-                                <span>Comments</span>
-                            </div>
-                        </div>
-                        <div className="section">
-                            <div className="section__middle">
-                                <Comments comments={comments} label={'guide'} hash={this.state.article.id}/>
-                            </div>
-                        </div>
-                    </div>
+                    <Comments comments={comments} label={'guide'} hash={this.state.article.id}/>
                 </div>
             )
     }

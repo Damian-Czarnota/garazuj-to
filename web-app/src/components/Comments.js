@@ -2,12 +2,11 @@
  * Created by Damian.Czarnota on 2018-11-21.
  */
 
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import AddComment from './AddComment';
 import { connect } from "react-redux";
 import DisplayAvatar from "./DisplayAvatar";
-import * as ArticleAPI from '../API/ArticleAPI';
 import * as CommentAPI from '../API/CommentsAPI';
 import { dataFromTimestampToString } from '../utilities';
 const mapStateToProps = state => {
@@ -41,10 +40,11 @@ class Comments extends Component{
             this.setState({comments:res})
         })
         }
-        //else if(label==='car'){
-        //CarAPI.getCarComments(hash).then(res =>{
-        //this.setState({comments:res})
-        //}
+        else if(label==='car'){
+            CommentAPI.getCarComments(hash).then(res =>{
+        this.setState({comments:res})
+        })
+        }
     };
 
     addComment = (content) =>{
@@ -55,47 +55,54 @@ class Comments extends Component{
                 this.getComments();
         })
         }
-        //else if(label==='car'){
-        //CarAPI.addCarComments(hash,content).then(res =>{
-        //this.getComments();
-        //}
+        else if(label==='car'){
+            CommentAPI.addCarComment(hash,content).then(res =>{
+        this.getComments();
+        })
+        }
     };
 
     deleteComment = (commentId) =>{
-        const {label,hash} = this.props;
-        if(label==='guide'){
-            CommentAPI.deleteComment(commentId).then(res =>{
-                if(res.status===200)
-                    this.getComments();
-            })
-        }
+        CommentAPI.deleteComment(commentId).then(res =>{
+            if(res.status===200)
+                this.getComments();
+        })
     };
     render(){
         let {comments} = this.state;
         let {isAdmin,accountInfo} = this.props;
         return(
-            <Fragment>
-                {comments&&comments.map(comment =>(
-                    <div className="comment" key={comment.id}>
-                        <div className="comment__author">
-                            <DisplayAvatar image={comment.author.profileImage} size={64}/>
-                            <p className="full-name">{comment.author.firstName} {comment.author.lastName}</p>
-                        </div>
-                        <div className="arrow-left">
-                        </div>
-                        <div className="comment__content">
-                            <p className="third-text m-0">{comment.content}</p>
-                            <div className="row-space-between">
-                            {comment.createDataTime&&(<p className="data-text">{dataFromTimestampToString(comment.createDataTime)}</p>)}
-                                {(isAdmin||accountInfo.id===comment.author.id)&&(
-                                    <button className="btn btn-danger m-0" onClick={(e) =>{this.deleteComment(comment.id)}}>Delete</button>
-                                )}
+        <div className="content">
+            <div className="section">
+                <div className="section__header">
+                    <span>Comments</span>
+                </div>
+            </div>
+            <div className="section">
+                <div className="section__middle">
+                    {comments&&comments.map(comment =>(
+                        <div className="comment" key={comment.id}>
+                            <div className="comment__author">
+                                <DisplayAvatar image={comment.author.profileImage} size={64}/>
+                                <p className="full-name">{comment.author.firstName} {comment.author.lastName}</p>
+                            </div>
+                            <div className="arrow-left">
+                            </div>
+                            <div className="comment__content">
+                                <p className="third-text m-0">{comment.content}</p>
+                                <div className="row-space-between">
+                                    {comment.createDataTime&&(<p className="data-text">{dataFromTimestampToString(comment.createDataTime)}</p>)}
+                                    {(isAdmin||accountInfo.id===comment.author.id)&&(
+                                        <button className="btn btn-danger m-0" onClick={(e) =>{this.deleteComment(comment.id)}}>Delete</button>
+                                    )}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ))}
-                <AddComment accountInfo={this.props.accountInfo} getComments={this.getComments} addComment={this.addComment} label={this.props.label}/>
-            </Fragment>
+                    ))}
+                    <AddComment accountInfo={this.props.accountInfo} getComments={this.getComments} addComment={this.addComment} label={this.props.label}/>
+                </div>
+            </div>
+        </div>
         )
     }
 }
