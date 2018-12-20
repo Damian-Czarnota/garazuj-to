@@ -38,3 +38,12 @@ export const editCar = (car) =>
         },
         body:JSON.stringify(car)
     }).then(res => res);
+
+export const getCar = (id) =>
+    fetch (`${URL}/car/${id}`,{
+        method:'GET',
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization': getToken()
+        }
+    }).then(res => res.json());
