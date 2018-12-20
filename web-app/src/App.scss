@@ -207,6 +207,10 @@ input:disabled{
           width:90%;
         }
       }
+    .col{
+      flex: 1 0 49%;
+      min-width:250px;
+    }
   }
 }
 
@@ -345,7 +349,7 @@ input:disabled{
   }
 }
 
-.user-cars_panel{
+.user-cars_panel,.car_panel{
   margin:0 10px;
 }
 

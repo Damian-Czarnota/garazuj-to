@@ -13,6 +13,7 @@ import * as currentUserAPI from '../API/Me';
 import * as UT from '../utilities';
 import UsersPanel from '../containers/UsersPanel';
 import UserDetailsPanel from '../containers/UserDetailsPanel';
+import CarPanel from '../containers/CarPanel';
 
 const mapStateToProps = state => {
   return { authenticated: state.authenticated };
@@ -87,7 +88,7 @@ class App extends Component {
                                 />
                                 <Route path="/user/:userID" component={UserDetailsPanel}
                                 />
-                                <Route path="/car/:carID"
+                                <Route path="/car/:carID" component={CarPanel}
                                 />
                         </div>
                     </div>
