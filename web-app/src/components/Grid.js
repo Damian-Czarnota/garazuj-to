@@ -65,9 +65,6 @@ class Grid extends Component{
                                                     {button.type==='delete'&&(
                                                         <button className="btn btn-danger" onClick={(e) => {this.props.deleteItem(item.id)}}>Delete</button>
                                                     )}
-                                                    {button.type==='details'&&(
-                                                        <Link to=""><button className="btn btn-primary">Details</button></Link>
-                                                    )}
                                                 </Fragment>
 
                                             ))}

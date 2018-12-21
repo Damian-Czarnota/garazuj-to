@@ -25,7 +25,7 @@ export default class UserCars extends Component {
                 {type:'edit-car'}]},
             {key:'action', button:[
                 {type:'payment-history'},
-                {type:'details'}]}
+                {type:'show-details', URL:'../car'}]}
         ];
         this.getCars = this.getCars.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
