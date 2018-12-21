@@ -4,6 +4,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import EditCarModal from './EditCarModal';
+import AddPaymentHistoryItem from './AddPaymentHistoryItem';
 import { Link } from 'react-router-dom'
 
 class Grid extends Component{
@@ -58,8 +59,14 @@ class Grid extends Component{
                                                     {button.type==='edit-car'&&(
                                                         <EditCarModal car={item} getCars={this.props.getCars} />
                                                     )}
+                                                    {button.type==='payment-history'&&(
+                                                        <AddPaymentHistoryItem car={item} />
+                                                    )}
                                                     {button.type==='delete'&&(
                                                         <button className="btn btn-danger" onClick={(e) => {this.props.deleteItem(item.id)}}>Delete</button>
+                                                    )}
+                                                    {button.type==='details'&&(
+                                                        <Link to=""><button className="btn btn-primary">Details</button></Link>
                                                     )}
                                                 </Fragment>
 

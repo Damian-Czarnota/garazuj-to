@@ -22,7 +22,10 @@ export default class UserCars extends Component {
             { key: 'productionYear', title: 'Year of production', type: 'number' },
             {key:'action', button:[
                 {type:'delete'},
-                {type:'edit-car'}]}
+                {type:'edit-car'}]},
+            {key:'action', button:[
+                {type:'payment-history'},
+                {type:'details'}]}
         ];
         this.getCars = this.getCars.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
