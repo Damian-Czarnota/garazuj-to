@@ -1,7 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { createPortal } from 'react-dom';
-import AddCarForm from './AddCarForm';
-import * as carAPI from '../API/CarAPI';
 
 const ModalTrigger = ({onOpen}) => <button className="btn btn-primary" onClick={onOpen}>Add payment item</button>;
 

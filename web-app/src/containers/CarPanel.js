@@ -44,8 +44,9 @@ export default class CarPanel extends Component{
                             <span>{car.brand} {car.model}</span>
                         </div>
                         <div className="section__middle">
-                                //@TODO:
+                            {//@TODO:
                                 //Component to showing car's photos
+                            }
                         </div>
                         <div className="section__header">
                             <span>Technical informations</span>
