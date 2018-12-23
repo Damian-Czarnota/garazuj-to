@@ -1,12 +1,14 @@
 import React, { Component, Fragment } from 'react';
 import { createPortal } from 'react-dom';
+import AddPaymentHistoryForm from "./AddPaymentHistoryForm";
+import * as paymentHistoryAPI from '../API/PaymentHistoryAPI';
 
 const ModalTrigger = ({onOpen}) => <button className="btn btn-primary" onClick={onOpen}>Add payment item</button>;
 
 const ModalContent = ({onClose,savePaymentHistoryItem, car}) => {
     return createPortal(
         <aside className="cover">
-            <div className="modal">
+            <div className="modal" style={{'width':50+'%'}}>
                 <div className="modal__header">
                     <h3 className="title">Add payment history item for {car.model} {car.brand}</h3>
                     <button className="modal__close circle circle-add-car circle-white" aria-label="Close Modal" onClick={onClose}>
@@ -14,7 +16,7 @@ const ModalContent = ({onClose,savePaymentHistoryItem, car}) => {
                     </button>
                 </div>
                 <div className="modal__body">
-
+                    <AddPaymentHistoryForm save={savePaymentHistoryItem}/>
                 </div>
             </div>
         </aside>,
@@ -30,11 +32,6 @@ export default class AddPaymentHistoryItem extends Component {
         };
         this.onOpen = this.onOpen.bind(this);
         this.onClose = this.onClose.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-    }
-
-    handleChange(event){
-        this.setState({[event.target.name]: event.target.value});
     }
 
     onOpen = () => {
@@ -45,13 +42,12 @@ export default class AddPaymentHistoryItem extends Component {
         this.setState({ isOpen: false });
     };
 
-    savePaymentHistoryItem= (item) =>{
-        //paymentHistoryAPI.addItem(item).then(res =>{
-        //    if(res.status===200){
-        //        this.props.getPaymentHistory(this.props.car.id);
-        //        this.onClose();
-        //    }}
-        //)
+    savePaymentHistoryItem = (item) =>{
+        paymentHistoryAPI.add(this.props.car.id,item).then(res =>{
+           if(res.status===200){
+               this.onClose();
+           }}
+        )
     };
 
     render() {

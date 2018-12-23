@@ -587,3 +587,7 @@ input:disabled{
   flex-wrap: wrap;
   justify-content: center;
 }
+
+.react-datepicker-wrapper, .react-datepicker__input-container{
+  width:100%;
+}
