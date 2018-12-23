@@ -8,6 +8,7 @@
     "immutable": "^4.0.0-rc.12",
     "node-sass": "^4.9.4",
     "react": "^16.5.2",
+    "react-datepicker": "^2.0.0",
     "react-dom": "^16.5.2",
     "react-draft-wysiwyg": "^1.12.13",
     "react-redux": "^5.0.7",

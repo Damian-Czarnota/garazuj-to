@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import EditCarModal from './EditCarModal';
 import AddPaymentHistoryItem from './AddPaymentHistoryItem';
 import { Link } from 'react-router-dom'
+import dateformat from 'dateformat'
 
 class Grid extends Component{
     static propTypes = {
@@ -45,6 +46,9 @@ class Grid extends Component{
                                     )}
                                     {(row.type==='text'||row.type==='number')&&(
                                         <span>{item[row.key]}</span>
+                                    )}
+                                    {(row.type==='date')&&(
+                                        <span>{dateformat((new Date(item[row.key])),'dd/mm/yyyy')}</span>
                                     )}
                                     {row.type==='length'&&(
                                         <span>{item[row.key].length}</span>

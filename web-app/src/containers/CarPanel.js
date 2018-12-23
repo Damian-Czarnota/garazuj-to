@@ -7,32 +7,57 @@ import React, { Component } from 'react';
 import * as CarAPI from '../API/CarAPI';
 import Comments from '../components/Comments';
 import Grid from '../components/Grid';
+import * as paymentHistoryAPI from '../API/PaymentHistoryAPI';
+
 
 export default class CarPanel extends Component{
 
     constructor(props){
         super(props);
         this.state={
-            car:{}
+            id:'',
+            brand: '',
+            model: '',
+            type: '',
+            mileage: '',
+            productionYear: '',
+            engineSize: '',
+            horsePower: '',
+            fuelType: '',
+            history:[],
+            comments:[]
         }
-        this.config=[{key:'date', type:'text'},
+
+        this.config=[{key:'date', type:'date'},
             {key:'description', type:'text'},
-            {key:'price', type:'number'}
+            {key:'price', type:'number'},
+            {key:'action',button:[{type:'delete'}]}
         ];
-        this.data=[
-            {date:'12/12/2012',description:'Tankowanie na Orlenie',price:'50zł'},
-            {date:'02/04/2015',description:'Wymiana oleju',price:'150zł'}
-        ];
+        this.deleteItem = this.deleteItem.bind(this);
+        this.getCarHistory = this.getCarHistory.bind(this);
     }
 
     componentWillMount(){
         let carID = this.props.match.params.carID;
         CarAPI.getCar(carID).then(res =>{
-            this.setState({car:res});
+            this.setState(res);
+        })
+    }
+
+    deleteItem = (id) => {
+        paymentHistoryAPI.deleteItem(id).then(res =>{
+            if(res.status===200)
+                this.getCarHistory();
+        })
+    }
+
+    getCarHistory = () => {
+        paymentHistoryAPI.getCarHistory(this.state.id).then(res =>{
+            this.setState({...this.state, history:res})
         })
     }
     render(){
-        let {car} = this.state;
+        let {id,history,brand,model,productionYear,fuelType,type,mileage, engineSize,horsePower, comments} = this.state;
         return(
             <div className="car_panel">
                 <div className="header">
@@ -41,7 +66,7 @@ export default class CarPanel extends Component{
                 <div className="content">
                     <div className="section">
                         <div className="section__header">
-                            <span>{car.brand} {car.model}</span>
+                            <span>{brand} {model}</span>
                         </div>
                         <div className="section__middle">
                             {//@TODO:
@@ -56,37 +81,37 @@ export default class CarPanel extends Component{
                                 <div className="col">
                                     <div className="form_group form_group-dark">
                                         <label className="">Brand:&nbsp;</label>
-                                        <p>{car.brand}</p>
+                                        <p>{brand}</p>
                                     </div>
                                     <div className="form_group form_group-dark">
                                         <label className="">Model:&nbsp;</label>
-                                        <p>{car.model}</p>
+                                        <p>{model}</p>
                                     </div>
                                     <div className="form_group form_group-dark">
                                         <label className="">Type:&nbsp;</label>
-                                        <p>{car.type}</p>
+                                        <p>{type}</p>
                                     </div>
                                     <div className="form_group form_group-dark">
                                         <label className="">Production year:&nbsp;</label>
-                                        <p>{car.productionYear}</p>
+                                        <p>{productionYear}</p>
                                     </div>
                                 </div>
                                 <div className="col">
                                     <div className="form_group form_group-dark">
                                         <label className="">Engine size:&nbsp;</label>
-                                        <p>{car.engineSize}</p>
+                                        <p>{engineSize}</p>
                                     </div>
                                     <div className="form_group form_group-dark">
                                         <label className="">Mileage:&nbsp;</label>
-                                        <p>{car.mileage}</p>
+                                        <p>{mileage}</p>
                                     </div>
                                     <div className="form_group form_group-dark">
                                         <label className="">Horse power:&nbsp;</label>
-                                        <p>{car.horsePower}</p>
+                                        <p>{horsePower}</p>
                                     </div>
                                     <div className="form_group form_group-dark">
                                         <label className="">Fuel type:&nbsp;</label>
-                                        <p>{car.fuelType}</p>
+                                        <p>{fuelType}</p>
                                     </div>
                                 </div>
                             </div>
@@ -98,11 +123,11 @@ export default class CarPanel extends Component{
                         </div>
                         <div>
                             <div className="details_section">
-                                <Grid config={this.config} data={this.data} noHeaders={true}/>
+                                {history&&<Grid config={this.config} data={history} deleteItem={this.deleteItem} noHeaders={true}/>}
                             </div>
                         </div>
                     </div>
-                    <Comments comments={car.comments} label={'car'} hash={car.id}/>
+                    <Comments comments={comments} label={'car'} hash={id}/>
                 </div>
             </div>
         )
