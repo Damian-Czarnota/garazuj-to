@@ -47,3 +47,20 @@ export const getCar = (id) =>
             'Authorization': getToken()
         }
     }).then(res => res.json());
+
+export const uploadPhotos = (id, photos) =>{
+    let fd = new FormData();
+    for(let i=0;i<photos.length;i++){
+        fd.append('photos', new Blob([(photos[i])], {
+            type: photos[i].type
+        }),photos[i].name);
+    }
+    return fetch (`${URL}/car/${id}`,{
+        method:'PATCH',
+        headers:{
+            'Authorization': getToken()
+        },
+        body:fd
+    })
+        .then(res => res);
+};

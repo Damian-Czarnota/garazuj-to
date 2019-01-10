@@ -81,7 +81,7 @@ export default class UserCars extends Component {
                         }
                         <div className="section__middle">
                             {cars.length > 0 && (
-                                <Grid config={this.config} data={cars} deleteItem={this.deleteItem} getCars={this.getCars}/>
+                                <Grid config={this.config} data={cars} deleteItem={this.deleteItem} getCars={this.getCars} isOwn={true} />
                             )}
                             {cars.length === 0 && (
                                 <div className="empty-grid">

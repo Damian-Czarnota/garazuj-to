@@ -8,9 +8,16 @@ import * as CarAPI from '../API/CarAPI';
 import Comments from '../components/Comments';
 import Grid from '../components/Grid';
 import * as paymentHistoryAPI from '../API/PaymentHistoryAPI';
+import ImageGallery from 'react-image-gallery';
+import UploadPhoto from '../components/UploadPhoto';
+import { connect } from "react-redux";
 
+const mapStateToProps = state => {
+    return { userInfo: state.userInfo,
+            isAdmin: state.isAdmin};
+};
 
-export default class CarPanel extends Component{
+class CarPanel extends Component{
 
     constructor(props){
         super(props);
@@ -25,8 +32,9 @@ export default class CarPanel extends Component{
             horsePower: '',
             fuelType: '',
             history:[],
-            comments:[]
-        }
+            comments:[],
+            isOwn:false
+        };
 
         this.config=[{key:'date', type:'date'},
             {key:'description', type:'text'},
@@ -41,6 +49,10 @@ export default class CarPanel extends Component{
         let carID = this.props.match.params.carID;
         CarAPI.getCar(carID).then(res =>{
             this.setState(res);
+            this.props.userInfo.cars.forEach(car =>{
+                    if(car.id===carID)
+                        this.setState({...this.state,isOwn:true});
+                })
         })
     }
 
@@ -57,7 +69,13 @@ export default class CarPanel extends Component{
         })
     }
     render(){
-        let {id,history,brand,model,productionYear,fuelType,type,mileage, engineSize,horsePower, comments} = this.state;
+        let images=[];
+        let {id,history,brand,model,productionYear,fuelType,type,mileage, engineSize,horsePower, comments, photos} = this.state;
+        if(photos)
+            photos.forEach(photo =>{
+                    images.push({original:`data:image/png;base64,${photo.data}`})
+            });
+
         return(
             <div className="car_panel">
                 <div className="header">
@@ -67,11 +85,18 @@ export default class CarPanel extends Component{
                     <div className="section">
                         <div className="section__header">
                             <span>{brand} {model}</span>
+                            {this.state.isOwn&&(<UploadPhoto id={id} />)}
                         </div>
                         <div className="section__middle">
-                            {//@TODO:
-                                //Component to showing car's photos
-                            }
+                            {images&&images.length>0&&(
+                                <ImageGallery items={images} infinite={true} showFullscreenButton={false} showThumbnails={false} showPlayButton={false} />
+                            )}
+                            {images&&images.length === 0 && (
+                                <div className="empty-grid">
+                                    <i className="fab fa-connectdevelop"></i>
+                                    <p>Car doesn't have photos.</p>
+                                </div>
+                            )}
                         </div>
                         <div className="section__header">
                             <span>Technical informations</span>
@@ -123,7 +148,13 @@ export default class CarPanel extends Component{
                         </div>
                         <div>
                             <div className="details_section">
-                                {history&&<Grid config={this.config} data={history} deleteItem={this.deleteItem} noHeaders={true}/>}
+                                {history&&<Grid config={this.config} data={history} deleteItem={this.deleteItem} noHeaders={true} isOwn={this.state.isOwn} isAdmin={this.props.isAdmin} />}
+                                {history&&history.length === 0 && (
+                                    <div className="empty-grid">
+                                        <i className="fab fa-connectdevelop"></i>
+                                        <p>Car doesn't have payment history.</p>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -133,3 +164,5 @@ export default class CarPanel extends Component{
         )
     }
 }
+
+export default connect(mapStateToProps)(CarPanel)

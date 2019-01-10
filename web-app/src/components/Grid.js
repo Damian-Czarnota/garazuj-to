@@ -13,11 +13,13 @@ class Grid extends Component{
         noHeaders:PropTypes.bool,
         config: PropTypes.array.isRequired,
         data: PropTypes.array.isRequired,
-        deleteItem: PropTypes.func
+        deleteItem: PropTypes.func,
+        isAdmin:PropTypes.bool,
+        isOwn:PropTypes.bool
     };
 
     render(){
-        const {config,data,noHeaders} = this.props;
+        const {config,data,noHeaders,isOwn,isAdmin} = this.props;
         return(
                 <table className="table">
                     {!noHeaders&&(
@@ -66,7 +68,7 @@ class Grid extends Component{
                                                     {button.type==='payment-history'&&(
                                                         <AddPaymentHistoryItem car={item} />
                                                     )}
-                                                    {button.type==='delete'&&(
+                                                    {button.type==='delete'&&(isOwn||isAdmin)&&(
                                                         <button className="btn btn-danger" onClick={(e) => {this.props.deleteItem(item.id)}}>Delete</button>
                                                     )}
                                                 </Fragment>
