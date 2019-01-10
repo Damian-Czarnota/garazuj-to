@@ -37,7 +37,8 @@ class SidebarPanel extends Component{
                         <li className="nav-column__item"><Link to="/guides">Guides</Link></li>
                         <li className="nav-column__item"><Link to="/users">Users</Link></li>
                         <li className="nav-column__item"><Link to="/cars">Cars</Link></li>
-                        <li onClick={this.props.logout} className="nav-column__item">Logout</li>
+                        <li className="nav-column__item"><Link to="/mechanics">Mechanics</Link></li>
+                        <li onClick={this.props.logout} className="nav-column__item" style={{cursor:'pointer'}}>Logout</li>
                     </ul>
                 </div>
             </div>
