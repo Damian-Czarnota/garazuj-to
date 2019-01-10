@@ -99,6 +99,12 @@ class Comments extends Component{
                             </div>
                         </div>
                     ))}
+                    {comments&&comments.length===0&&(
+                        <div className="empty-grid">
+                            <p>There is no comments.</p>
+                            <p>Start from adding the first one.</p>
+                        </div>
+                    )}
                     <AddComment accountInfo={this.props.accountInfo} getComments={this.getComments} addComment={this.addComment} label={this.props.label}/>
                 </div>
             </div>

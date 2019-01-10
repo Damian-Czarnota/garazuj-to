@@ -94,6 +94,12 @@ export default class UserDetailsPanel extends Component {
                                 {userInfo.cars&&userInfo.cars.map((car,index) =>(
                                     <CarSquare car={car} key={index}></CarSquare>
                                 ))}
+                                {userInfo.cars&&userInfo.cars.length === 0 && (
+                                    <div className="empty-grid">
+                                        <i className="fab fa-connectdevelop"></i>
+                                        <p>User doesn't have cars.</p>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>

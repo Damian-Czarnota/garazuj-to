@@ -4,7 +4,7 @@ import AuthPanel from './AuthPanel';
 import SidebarPanel from './SidebarPanel';
 import UserPanel from '../containers/UserPanel';
 import UserCars from '../containers/UserCars';
-import GuidesPanel from '../containers/GuidesPanel';
+import Articles from '../containers/Articles';
 import Article from '../containers/Article';
 import { connect } from "react-redux";
 import { Route,withRouter  } from 'react-router-dom'
@@ -14,6 +14,7 @@ import * as UT from '../utilities';
 import UsersPanel from '../containers/UsersPanel';
 import UserDetailsPanel from '../containers/UserDetailsPanel';
 import CarPanel from '../containers/CarPanel';
+import Mechanics from '../containers/Mechanics';
 
 const mapStateToProps = state => {
   return { authenticated: state.authenticated };
@@ -82,13 +83,15 @@ class App extends Component {
                                 />
                                 <Route path="/users" render={()=> (<UsersPanel />)}
                                 />
-                                <Route path="/guides" render={()=> (<GuidesPanel />)}
+                                <Route path="/guides" render={()=> (<Articles />)}
                                 />
                                 <Route path="/guide/:articleHash" component={Article}
                                 />
                                 <Route path="/user/:userID" component={UserDetailsPanel}
                                 />
                                 <Route path="/car/:carID" component={CarPanel}
+                                />
+                                <Route path="/mechanics" component={Mechanics}
                                 />
                         </div>
                     </div>
