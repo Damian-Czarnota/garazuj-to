@@ -62,6 +62,9 @@ class Grid extends Component{
                                                     {button.type==='show-details'&&(
                                                         <Link to={`${button.URL}/${item.id}`}><button className="btn btn-primary">Show details</button></Link>
                                                     )}
+                                                    {button.type==='guide-link'&&(
+                                                        <Link to={`${button.URL}/${item.articleID}`}><button className="btn btn-primary">Show guide</button></Link>
+                                                    )}
                                                     {button.type==='edit-car'&&(
                                                         <EditCarModal car={item} getCars={this.props.getCars} />
                                                     )}

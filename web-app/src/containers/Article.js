@@ -4,6 +4,7 @@
 
 import React, {Component} from 'react';
 import * as ArticleAPI from '../API/ArticleAPI';
+import * as ReportsAPI from '../API/ReportsAPI';
 import Comments from '../components/Comments';
 import draftToHtml from 'draftjs-to-html';
 import { connect } from "react-redux";
@@ -40,6 +41,13 @@ class Article extends Component {
             this.props.history.push("/guides");
         })
     }
+
+    reportArticle(id){
+        ReportsAPI.add(id).then(res =>{
+            if(res.status===200)
+                alert("Thanks for reporting this post!")
+        })
+    }
     render(){
         let {article} = this.state;
         let {comments} = article;
@@ -64,6 +72,7 @@ class Article extends Component {
                             {this.state.canDelete&&(
                                 <button className="btn btn-danger text-right" onClick={(e) => this.deleteArticle(article.id)}>Delete</button>
                             )}
+                            <button className="btn btn-danger text-right" onClick={(e) => this.reportArticle(article.id)}>Report</button>
                         </div>
                     </div>
                     <Comments comments={comments} label={'guide'} hash={this.state.article.id}/>

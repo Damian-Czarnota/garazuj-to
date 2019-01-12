@@ -15,6 +15,7 @@ import UsersPanel from '../containers/UsersPanel';
 import UserDetailsPanel from '../containers/UserDetailsPanel';
 import CarPanel from '../containers/CarPanel';
 import Mechanics from '../containers/Mechanics';
+import Reports from '../containers/Reports';
 
 const mapStateToProps = state => {
   return { authenticated: state.authenticated };
@@ -92,6 +93,8 @@ class App extends Component {
                                 <Route path="/car/:carID" component={CarPanel}
                                 />
                                 <Route path="/mechanics" component={Mechanics}
+                                />
+                                <Route path="/reports" component={Reports}
                                 />
                         </div>
                     </div>
