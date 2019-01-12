@@ -23,3 +23,12 @@ export const getUser = (id) =>
             'Authorization': getToken()
         }
     }).then(res => res.json());
+
+export const deleteUser = (id) =>
+    fetch (`${URL}/user/${id}`,{
+        method:'DELETE',
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization': getToken()
+        }
+    }).then(res => res);

@@ -5,8 +5,12 @@
 import React, { Component } from 'react';
 import * as usersAPI from '../API/UsersAPI';
 import Grid from "../components/Grid";
+import { connect } from "react-redux";
+const mapStateToProps = state => {
+    return { isAdmin: state.isAdmin };
+};
 
-export default class UsersPanel extends Component {
+class UsersPanel extends Component {
 
     constructor(props) {
         super(props);
@@ -20,8 +24,10 @@ export default class UsersPanel extends Component {
             {key:'action', button:[{
                 type:'show-details',
                 URL:'user'
-            }]}
+            },
+            {type:'delete'}]}
         ];
+        this.deleteUser = this.deleteUser.bind(this);
     }
 
     componentDidMount(){
@@ -34,6 +40,12 @@ export default class UsersPanel extends Component {
         })
     };
 
+    deleteUser = (id) =>{
+        usersAPI.deleteUser(id).then(res =>{
+            if(res.status===200)
+                this.getUsers();
+        })
+    }
 
     render() {
         let {users} = this.state;
@@ -49,7 +61,7 @@ export default class UsersPanel extends Component {
                         </div>
                         <div className="section__middle">
                             {users.length > 0 && (
-                                <Grid config={this.config} data={users} />
+                                <Grid config={this.config} data={users} isAdmin={this.props.isAdmin} deleteItem={this.deleteUser}/>
                             )}
                         </div>
                     </div>
@@ -58,3 +70,5 @@ export default class UsersPanel extends Component {
         )
     }
 }
+
+export default connect(mapStateToProps)(UsersPanel)
