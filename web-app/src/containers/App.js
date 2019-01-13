@@ -16,6 +16,7 @@ import UserDetailsPanel from '../containers/UserDetailsPanel';
 import CarPanel from '../containers/CarPanel';
 import Mechanics from '../containers/Mechanics';
 import Reports from '../containers/Reports';
+import MainPage from "./MainPage";
 
 const mapStateToProps = state => {
   return { authenticated: state.authenticated };
@@ -76,7 +77,7 @@ class App extends Component {
                     <div className="app_container">
                         <SidebarPanel logout={this.logout}/>
                         <div className="components_container">
-                                <Route exact path="/" render={()=> (<div></div>)}
+                                <Route exact path="/" render={()=> (<MainPage />)}
                                 />
                                 <Route path="/profile" render={()=> (<UserPanel updateUserInfo={this.updateUserInfo}/>)}
                                 />
