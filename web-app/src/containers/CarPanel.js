@@ -43,19 +43,23 @@ class CarPanel extends Component{
         ];
         this.deleteItem = this.deleteItem.bind(this);
         this.getCarHistory = this.getCarHistory.bind(this);
+        this.getCar = this.getCar.bind(this);
     }
 
     componentWillMount(){
         let carID = this.props.match.params.carID;
+        this.getCar(carID);
+    }
+
+    getCar = (carID) =>{
         CarAPI.getCar(carID).then(res =>{
             this.setState(res);
             this.props.userInfo.cars.forEach(car =>{
-                    if(car.id===carID)
-                        this.setState({...this.state,isOwn:true});
-                })
+                if(car.id.toString()===carID)
+                    this.setState({...this.state,isOwn:true});
+            })
         })
     }
-
     deleteItem = (id) => {
         paymentHistoryAPI.deleteItem(id).then(res =>{
             if(res.status===200)
@@ -85,7 +89,7 @@ class CarPanel extends Component{
                     <div className="section">
                         <div className="section__header">
                             <span>{brand} {model}</span>
-                            {this.state.isOwn&&(<UploadPhoto id={id} />)}
+                            {this.state.isOwn&&(<UploadPhoto id={id} getCar={this.getCar}/>)}
                         </div>
                         <div className="section__middle">
                             {images&&images.length>0&&(

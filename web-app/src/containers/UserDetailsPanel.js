@@ -16,13 +16,9 @@ export default class UserDetailsPanel extends Component {
         this.state={
             userInfo:{}
         };
-        this.config=[{key:'date', type:'text'},
+        this.config=[{key:'date', type:'date'},
         {key:'description', type:'text'},
         {key:'price', type:'number'}
-        ];
-        this.data=[
-            {date:'12/12/2012',description:'Tankowanie na Orlenie',price:'50zł'},
-            {date:'02/04/2015',description:'Wymiana oleju',price:'150zł'}
         ];
     };
     componentDidMount(){
@@ -81,7 +77,7 @@ export default class UserDetailsPanel extends Component {
                         </div>
                         <div>
                             <div className="details_section">
-                                <Grid config={this.config} data={this.data} noHeaders={true}/>
+                                {userInfo.history&&(<Grid config={this.config} data={userInfo.history} noHeaders={true}/>)}
                             </div>
                         </div>
                     </div>

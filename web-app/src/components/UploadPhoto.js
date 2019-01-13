@@ -18,7 +18,7 @@ export default class UploadPhoto extends  Component{
         }
         CarAPI.uploadPhotos(this.props.id,files).then(res =>{
             if(res.status===200)
-                console.log('elo');
+                this.props.getCar(this.props.id);
         })
     };
 
