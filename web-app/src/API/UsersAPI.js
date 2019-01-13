@@ -5,8 +5,8 @@
 import { URL } from './config';
 import {getToken} from '../actions/index';
 
-export const getUsers = () =>
-    fetch (`${URL}/users`,{
+export const getUsers = (query) =>
+    fetch (`${URL}/users${query}`,{
         method:'GET',
         headers:{
             'Content-Type': 'application/json',

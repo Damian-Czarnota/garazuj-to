@@ -16,8 +16,8 @@ export const add = (mechanic) =>
 })
     .then(res => res);
 
-export const getAll = () =>
-    fetch(`${URL}/mechanics`,{
+export const getAll = (query) =>
+    fetch(`${URL}/mechanics${query}`,{
         method:'GET',
         headers:{
             'Content-Type': 'application/json',

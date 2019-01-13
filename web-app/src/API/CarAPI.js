@@ -11,8 +11,8 @@ export const addCar = (car) =>
         body:JSON.stringify(car)
     }).then(res => res);
 
-export const getCars = () =>
-    fetch (`${URL}/car`,{
+export const getCars = (query) =>
+    fetch (`${URL}/car${query}`,{
         method:'GET',
         headers:{
             'Content-Type': 'application/json',

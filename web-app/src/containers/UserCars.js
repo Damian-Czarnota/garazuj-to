@@ -7,6 +7,8 @@ import AddCarForm from '../components/AddCarForm';
 import * as carAPI from '../API/CarAPI';
 import Grid from "../components/Grid";
 import { Link } from 'react-router-dom';
+import Searcher from '../components/Searcher';
+import Filter from '../components/Filter';
 
 export default class UserCars extends Component {
 
@@ -27,6 +29,9 @@ export default class UserCars extends Component {
                 {type:'payment-history'},
                 {type:'show-details', URL:'../car'}]}
         ];
+        this.filterConfig= [{name:'DIESEL'},
+            {name:'LPG'},
+            {name:'PETROL'}];
         this.getCars = this.getCars.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
     }
@@ -55,8 +60,9 @@ export default class UserCars extends Component {
         })
     };
 
-    getCars = () => {
-        carAPI.getCars().then(res => {
+    getCars = (query) => {
+        query = query||'';
+        carAPI.getCars(query).then(res => {
             this.setState({cars:res})
         })
     };
@@ -80,6 +86,10 @@ export default class UserCars extends Component {
                             null
                         }
                         <div className="section__middle">
+                            <div className="filters">
+                                <Filter config={this.filterConfig} getItems={this.getCars}/>
+                                <Searcher getItems={this.getCars}/>
+                            </div>
                             {cars.length > 0 && (
                                 <Grid config={this.config} data={cars} deleteItem={this.deleteItem} getCars={this.getCars} isOwn={true} />
                             )}

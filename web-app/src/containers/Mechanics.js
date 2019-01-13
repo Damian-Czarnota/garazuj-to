@@ -6,6 +6,7 @@ import React, {Component} from 'react';
 import AddMechanic from '../containers/AddMechanic';
 import * as MechanicAPI from '../API/MechanicAPI';
 import { connect } from "react-redux";
+import Searcher from "../components/Searcher";
 
 const mapStateToProps = state => {
     return { isAdmin: state.isAdmin};
@@ -24,8 +25,9 @@ class Mechanics extends Component {
         this.getMechanics()
     }
 
-    getMechanics(){
-        MechanicAPI.getAll().then(res =>{
+    getMechanics(query){
+        query=query||'';
+        MechanicAPI.getAll(query).then(res =>{
             if(!res.status){
                 this.setState({mechanics:res})
             }
@@ -54,6 +56,7 @@ class Mechanics extends Component {
                     </div>
                     <div className="section">
                         <div className="section__middle">
+                            <Searcher getItems={this.getMechanics}/>
                             {this.state.mechanics.length>0&&this.state.mechanics.map(mechanic =>(<div key={mechanic.id} className="article">
                                 <div className="article__image">
                                     <i className="fas fa-toolbox icon"></i>

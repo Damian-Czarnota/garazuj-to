@@ -26,8 +26,8 @@ export const add = (article) =>
 })
     .then(res => res.json());
 
-export const getAll = () =>
-    fetch(`${URL}/post`,{
+export const getAll = (query) =>
+    fetch(`${URL}/post${query}`,{
         method:'GET',
         headers:{
             'Content-Type': 'application/json',

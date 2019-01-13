@@ -6,6 +6,7 @@ import React, {Component} from 'react';
 import { Link } from 'react-router-dom'
 import AddArticle from '../containers/AddArticle';
 import * as ArticleAPI from '../API/ArticleAPI';
+import Searcher from '../components/Searcher';
 
 export default class Articles extends Component {
     constructor(props){
@@ -20,8 +21,9 @@ export default class Articles extends Component {
         this.getArticles()
     }
 
-    getArticles(){
-        ArticleAPI.getAll().then(res =>{
+    getArticles(query){
+        query = query||'';
+        ArticleAPI.getAll(query).then(res =>{
             if(!res.status){
                 this.setState({articles:res})
             }
@@ -43,6 +45,7 @@ export default class Articles extends Component {
                     </div>
                     <div className="section">
                         <div className="section__middle">
+                            <Searcher getItems={this.getArticles}/>
                             {this.state.articles.length>0&&this.state.articles.map(article =>(<div key={article.id} className="article">
                                 <div className="article__image">
                                     <i className="fas fa-book-open icon"></i>

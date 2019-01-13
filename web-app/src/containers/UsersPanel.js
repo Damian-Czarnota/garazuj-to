@@ -6,6 +6,8 @@ import React, { Component } from 'react';
 import * as usersAPI from '../API/UsersAPI';
 import Grid from "../components/Grid";
 import { connect } from "react-redux";
+import Searcher from '../components/Searcher';
+
 const mapStateToProps = state => {
     return { isAdmin: state.isAdmin };
 };
@@ -18,7 +20,8 @@ class UsersPanel extends Component {
             users:[]
         };
         this.config = [
-            { key: 'firstName', title: 'Name', type: 'text' },
+            { key: 'username', title: 'Username', type: 'text' },
+            { key: 'firstName', title: 'First Name', type: 'text' },
             { key: 'lastName', title: 'Last name', type: 'text' },
             { key: 'cars', title: 'Number of cars', type: 'length' },
             {key:'action', button:[{
@@ -28,14 +31,16 @@ class UsersPanel extends Component {
             {type:'delete'}]}
         ];
         this.deleteUser = this.deleteUser.bind(this);
+        this.getUsers = this.getUsers.bind(this);
     }
 
     componentDidMount(){
        this.getUsers();
     }
 
-    getUsers = () =>{
-        usersAPI.getUsers().then(res =>{
+    getUsers = (query) =>{
+        query = query||'';
+        usersAPI.getUsers(query).then(res =>{
             this.setState({users:res});
         })
     };
@@ -60,6 +65,7 @@ class UsersPanel extends Component {
                             <span>Users in service</span>
                         </div>
                         <div className="section__middle">
+                            <Searcher getItems={this.getUsers}/>
                             {users.length > 0 && (
                                 <Grid config={this.config} data={users} isAdmin={this.props.isAdmin} deleteItem={this.deleteUser}/>
                             )}
